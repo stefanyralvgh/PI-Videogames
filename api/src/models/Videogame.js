@@ -1,5 +1,7 @@
 const { DataTypes } = require("sequelize");
 
+
+
 module.exports = (sequelize) => {
   sequelize.define(
     "Videogame",
@@ -16,12 +18,12 @@ module.exports = (sequelize) => {
       },
 
       description: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
 
       platforms: {
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: false,
       },
 
@@ -31,7 +33,7 @@ module.exports = (sequelize) => {
       },
 
       release_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
 
@@ -43,4 +45,5 @@ module.exports = (sequelize) => {
 
     { timestamps: false }
   );
+  
 };

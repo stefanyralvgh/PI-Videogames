@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const { fillDataBase } = require('./controllers/controllerVideogames.js');
+
 
 require('./db.js');
 
@@ -21,6 +23,8 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
+fillDataBase();
 
 server.use('/', routes);
 
