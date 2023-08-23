@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const { fillDataBase } = require('./controllers/controllerVideogames.js');
+const { fillDataBaseGenres, getGenres } = require('./controllers/controllerGenres.js');
 
 
 require('./db.js');
@@ -24,6 +25,8 @@ server.use((req, res, next) => {
   next();
 });
 
+
+fillDataBaseGenres();
 fillDataBase();
 
 server.use('/', routes);

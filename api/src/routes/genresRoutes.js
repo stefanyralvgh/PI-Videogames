@@ -4,7 +4,7 @@ const { getGenres } = require('../controllers/controllerGenres');
 
 
 
-router.get("/genres", getGenres);
+router.get("/", getGenres);
 
 
 module.exports = router;

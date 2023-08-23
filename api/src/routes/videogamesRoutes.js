@@ -4,7 +4,7 @@ const { getAllVideogames, getVideogamesById, getVideogamesByName, postVideogames
 
 
 
-router.get("/videogames", getAllVideogames);
+router.get("/", getAllVideogames);
 router.get("/videogames/:id", getVideogamesById);
 router.get("/videogames/name", getVideogamesByName);
 router.post("/videogames", postVideogames);
