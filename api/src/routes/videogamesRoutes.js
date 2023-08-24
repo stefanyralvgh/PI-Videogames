@@ -4,10 +4,10 @@ const { getAllVideogames, getVideogamesById, getVideogamesByName, postVideogames
 
 
 
-router.get("/", getAllVideogames);
-router.get("/videogames/:id", getVideogamesById);
 router.get("/videogames/name", getVideogamesByName);
-router.post("/videogames", postVideogames);
+router.get("/", getAllVideogames);
+router.post("/", postVideogames);
+router.get("/videogames/:id", getVideogamesById);
 
 
 module.exports = router;

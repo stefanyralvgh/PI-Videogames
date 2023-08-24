@@ -30,7 +30,7 @@ const fillDataBaseGenres = async () => {
 
     genresData.forEach((genreData) => {
       const genreInfo = {
-        id: idCounter++,
+        id: genreData.id,
         name: genreData.name              
       };
 
@@ -38,7 +38,7 @@ const fillDataBaseGenres = async () => {
     });
 
       
-    await Genre.bulkCreate(genres);
+    await Genre.findorCreate(genres);
 
     console.log("genres database filled");
   } 

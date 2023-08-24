@@ -1,16 +1,9 @@
 const axios = require("axios");
 require('dotenv').config();
 const { API_KEY } = process.env;
-const {Videogame} = require("../db");
+const {Videogame, Genre} = require("../db");
 
 
-const getAllVideogames = (req, res) => {
-  try {
-    Videogame.findAll().then((videogames) => res.send(videogames));
-  } catch (error) {
-    res.send(error);
-  }
-};
 
 const fillDataBase = async () => {
   const url = "https://api.rawg.io/api/games";
@@ -51,6 +44,15 @@ catch (error) {
   }
 };
 
+const getAllVideogames = (req, res) => {
+  try {
+    Videogame.findAll().then((videogames) => res.send(videogames));
+  } catch (error) {
+    res.send(error);
+  }
+};
+
+
 const getVideogamesById = (req, res) => {
   console.log("videogamesById");
 };
@@ -59,9 +61,34 @@ const getVideogamesByName = (req, res) => {
   console.log("videogamesByName");
 };
 
-const postVideogames = (req, res) => {
-  console.log("postVideogames");
+
+const postVideogames = async (req, res) => {
+  try {
+    const videogameData = req.body;
+    const genresIds = videogameData.genres;
+
+   
+    const [newVideogame, created] = await Videogame.findOrCreate({
+      where: { name: videogameData.name }, 
+      defaults: videogameData, 
+    });
+
+    if (created || !newVideogame) {
+      if (genresIds && genresIds.length > 0) {
+        await newVideogame.setGenres(genresIds);
+      }
+    }
+
+    res.status(201).json(newVideogame);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
+
+
+
+
+
 
 module.exports = {
   getAllVideogames,
