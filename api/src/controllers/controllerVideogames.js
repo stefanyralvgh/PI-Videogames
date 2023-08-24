@@ -55,7 +55,19 @@ const getAllVideogames = (req, res) => {
 
 
 const getVideogamesById = (req, res) => {
-  console.log("videogamesById");
+  const { id } = req.params;
+
+  try {
+    const videogameId = id;
+
+    Videogame.findByPk(videogameId, {
+      include: [Genre],
+    }).then((videogame) => {
+      videogame ? res.send(videogame) : res.status(404).send("Videogame not found");
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const getVideogamesByName = (req, res) => {
