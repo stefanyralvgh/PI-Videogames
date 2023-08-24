@@ -43,11 +43,11 @@ const { Videogame, Genre } = sequelize.models;
 //   as: "RelatedGenres" 
 // });
 
-// En el modelo Videogame
-Videogame.belongsToMany(Genre, { through: 'VideogameGenre' });
 
-// En el modelo Genre
-Genre.belongsToMany(Videogame, { through: 'VideogameGenre' });
+Videogame.belongsToMany(Genre, { through: 'videogame_genre' });
+
+
+Genre.belongsToMany(Videogame, { through: 'videogame_genre' });
 
 
 

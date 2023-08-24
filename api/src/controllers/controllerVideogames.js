@@ -22,6 +22,7 @@ const fillDataBase = async () => {
     videogamesData.forEach((videogameData) => {
       const videogameInfo = {
         id: idCounter++,
+        // id: videogameData.id,
         name: videogameData.name,
         description: videogameData.description ? videogameData.description : "Not found",
         image: videogameData.background_image,

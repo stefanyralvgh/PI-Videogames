@@ -38,7 +38,7 @@ const fillDataBaseGenres = async () => {
     });
 
       
-    await Genre.findorCreate(genres);
+    await Genre.bulkCreate(genres);
 
     console.log("genres database filled");
   } 
