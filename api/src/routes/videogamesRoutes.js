@@ -5,9 +5,9 @@ const { getAllVideogames, getVideogamesById, getVideogamesByName, postVideogames
 
 
 router.get("/name", getVideogamesByName);
+router.get("/:id", getVideogamesById);
 router.get("/", getAllVideogames);
 router.post("/", postVideogames);
-router.get("/:id", getVideogamesById);
 
 
 module.exports = router;

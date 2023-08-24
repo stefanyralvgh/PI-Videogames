@@ -1,20 +1,16 @@
 const axios = require("axios");
-require('dotenv').config();
+require("dotenv").config();
 const { API_KEY } = process.env;
-const {Videogame, Genre} = require("../db");
-
-
+const { Videogame, Genre } = require("../db");
 
 const fillDataBase = async () => {
   const url = "https://api.rawg.io/api/games";
 
   try {
-    const response = await axios.get(
-      `${url}?key=${API_KEY}`
-    );
+    const response = await axios.get(`${url}?key=${API_KEY}`);
 
     const videogamesData = response.data.results;
-   
+
     const videogames = [];
 
     let idCounter = 0;
@@ -24,23 +20,24 @@ const fillDataBase = async () => {
         id: idCounter++,
         // id: videogameData.id,
         name: videogameData.name,
-        description: videogameData.description ? videogameData.description : "Not found",
+        description: videogameData.description
+          ? videogameData.description
+          : "Not found",
         image: videogameData.background_image,
-        release_date: videogameData.released ? videogameData.released : "Not found",
+        release_date: videogameData.released
+          ? videogameData.released
+          : "Not found",
         platforms: videogameData.platforms,
         rating: videogameData.rating,
-        
       };
 
       videogames.push(videogameInfo);
     });
 
-      
     await Videogame.bulkCreate(videogames);
 
     console.log("database filled");
-  } 
-catch (error) {
+  } catch (error) {
     console.log(error);
   }
 };
@@ -53,7 +50,6 @@ const getAllVideogames = (req, res) => {
   }
 };
 
-
 const getVideogamesById = (req, res) => {
   const { id } = req.params;
 
@@ -63,27 +59,42 @@ const getVideogamesById = (req, res) => {
     Videogame.findByPk(videogameId, {
       include: [Genre],
     }).then((videogame) => {
-      videogame ? res.send(videogame) : res.status(404).send("Videogame not found");
+      videogame
+        ? res.send(videogame)
+        : res.status(404).send("Videogame not found");
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const getVideogamesByName = (req, res) => {
-  console.log("videogamesByName");
-};
+const getVideogamesByName = async (req, res) => {
+  const { name } = req.query;
+  try {
+    const limit = 15;
+    const videogame = await Videogame.findAll({
+      where: { name: { [Op.iLike]: `%${name}%` } },
+      include: [Genre],
+      limit: limit,
+      subQuery: false,
+    });
 
+    videogame
+      ? res.send(videogame)
+      : res.status(404).send("No videogames found");
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const postVideogames = async (req, res) => {
   try {
     const videogameData = req.body;
     const genresIds = videogameData.genres;
 
-   
     const [newVideogame, created] = await Videogame.findOrCreate({
-      where: { name: videogameData.name }, 
-      defaults: videogameData, 
+      where: { name: videogameData.name },
+      defaults: videogameData,
     });
 
     if (created || !newVideogame) {
@@ -97,11 +108,6 @@ const postVideogames = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
-
-
-
 
 module.exports = {
   getAllVideogames,

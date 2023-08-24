@@ -26,7 +26,7 @@ const fillDataBaseGenres = async () => {
    
     const genres = [];
 
-    let idCounter = 0;
+    // let idCounter = 0;
 
     genresData.forEach((genreData) => {
       const genreInfo = {
