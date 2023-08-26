@@ -2,6 +2,7 @@ const axios = require("axios");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Videogame, Genre } = require("../db");
+const { Op } = require("sequelize");
 
 const fillDataBase = async () => {
   const url = "https://api.rawg.io/api/games";
@@ -10,6 +11,7 @@ const fillDataBase = async () => {
     const response = await axios.get(`${url}?key=${API_KEY}`);
 
     const videogamesData = response.data.results;
+    console.log(videogamesData.length);
 
     const videogames = [];
 
@@ -71,12 +73,11 @@ const getVideogamesById = (req, res) => {
 const getVideogamesByName = async (req, res) => {
   const { name } = req.query;
   try {
-    const limit = 15;
-    const videogame = await Videogame.findAll({
+      const videogame = await Videogame.findAndCountAll({
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: [Genre],
-      limit: limit,
-      subQuery: false,
+      limit: 15
+      
     });
 
     videogame
