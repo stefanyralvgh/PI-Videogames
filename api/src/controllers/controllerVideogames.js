@@ -4,71 +4,94 @@ const { API_KEY } = process.env;
 const { Videogame, Genre } = require("../db");
 const { Op } = require("sequelize");
 
-const fillDataBase = async () => {
-  const url = "https://api.rawg.io/api/games";
+// const fillDataBase = async () => {
+//   const url = "https://api.rawg.io/api/games";
 
-  try {
-    const response = await axios.get(`${url}?key=${API_KEY}`);
-
-    const videogamesData = response.data.results;
-    console.log(videogamesData.length);
-
-    const videogames = [];
-
-    let idCounter = 0;
-
-    videogamesData.forEach((videogameData) => {
-      const videogameInfo = {
-        id: idCounter++,
-        // id: videogameData.id,
-        name: videogameData.name,
-        description: videogameData.description
-          ? videogameData.description
-          : "Not found",
-        image: videogameData.background_image,
-        release_date: videogameData.released
-          ? videogameData.released
-          : "Not found",
-        platforms: videogameData.platforms,
-        rating: videogameData.rating,
-      };
-
-      videogames.push(videogameInfo);
-    });
-
-    await Videogame.bulkCreate(videogames);
-
-    console.log("database filled");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// const getAllVideogames = (req, res) => {
 //   try {
-//     Videogame.findAll().then((videogames) => res.send(videogames));
+//     const response = await axios.get(`${url}?key=${API_KEY}`);
+
+//     const videogamesData = response.data.results;
+//     console.log(videogamesData.length);
+
+//     const videogames = [];
+
+//     let idCounter = 0;
+
+//     videogamesData.forEach((videogameData) => {
+//       const videogameInfo = {
+//         id: idCounter++,
+//         name: videogameData.name,
+//         description: videogameData.description
+//           ? videogameData.description
+//           : "Not found",
+//         image: videogameData.background_image,
+//         release_date: videogameData.released
+//           ? videogameData.released
+//           : "Not found",
+//         platforms: videogameData.platforms,
+//         rating: videogameData.rating,
+//       };
+
+//       videogames.push(videogameInfo);
+//     });
+
+//     await Videogame.bulkCreate(videogames);
+
+//     console.log("database filled");
 //   } catch (error) {
-//     res.send(error);
+//     console.log(error);
 //   }
 // };
 
-const getAllVideogames = async (req, res) => {
-  const { page = 1, pageSize = 20 } = req.query;
+const fillDataBase = async () => {
+  const url = "https://api.rawg.io/api/games";
+  const totalGamesToFetch = 100;
+  const gamesPerPage = 20;
+  const totalPages = Math.ceil(totalGamesToFetch / gamesPerPage);
+  const videogames = [];
+  let idCounter = 0;
 
   try {
-    const offset = (page - 1) * pageSize;
+    for (let page = 1; page <= totalPages; page++) {
+      const response = await axios.get(`${url}?key=${API_KEY}&page=${page}`);
 
-    const videogames = await Videogame.findAll({
-      offset,
-      limit: pageSize,
-    });
+      const videogamesData = response.data.results;
+      console.log(`Fetching page ${page}: ${videogamesData.length} games`);
 
-    res.send(videogames);
+      videogamesData.forEach((videogameData) => {
+        const videogameInfo = {
+          id: idCounter++,
+          name: videogameData.name,
+          description: videogameData.description
+            ? videogameData.description
+            : "Not found",
+          image: videogameData.background_image,
+          release_date: videogameData.released
+            ? videogameData.released
+            : "Not found",
+          platforms: videogameData.platforms,
+          rating: videogameData.rating,
+        };
+
+        videogames.push(videogameInfo);
+      });
+    }
+
+    await Videogame.bulkCreate(videogames);
+
+    console.log("Database filled");
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
   }
 };
 
+const getAllVideogames = (req, res) => {
+  try {
+    Videogame.findAll().then((videogames) => res.send(videogames));
+  } catch (error) {
+    res.send(error);
+  }
+};
 
 const getVideogamesById = (req, res) => {
   const { id } = req.params;
@@ -91,11 +114,10 @@ const getVideogamesById = (req, res) => {
 const getVideogamesByName = async (req, res) => {
   const { name } = req.query;
   try {
-      const videogame = await Videogame.findAndCountAll({
+    const videogame = await Videogame.findAndCountAll({
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: [Genre],
-      limit: 15
-      
+      limit: 15,
     });
 
     videogame
