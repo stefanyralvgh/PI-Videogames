@@ -44,13 +44,31 @@ const fillDataBase = async () => {
   }
 };
 
-const getAllVideogames = (req, res) => {
+// const getAllVideogames = (req, res) => {
+//   try {
+//     Videogame.findAll().then((videogames) => res.send(videogames));
+//   } catch (error) {
+//     res.send(error);
+//   }
+// };
+
+const getAllVideogames = async (req, res) => {
+  const { page = 1, pageSize = 20 } = req.query;
+
   try {
-    Videogame.findAll().then((videogames) => res.send(videogames));
+    const offset = (page - 1) * pageSize;
+
+    const videogames = await Videogame.findAll({
+      offset,
+      limit: pageSize,
+    });
+
+    res.send(videogames);
   } catch (error) {
-    res.send(error);
+    res.status(500).json({ message: error.message });
   }
 };
+
 
 const getVideogamesById = (req, res) => {
   const { id } = req.params;
