@@ -56,6 +56,7 @@ const getAllVideogames = (req, res) => {
   }
 };
 
+
 const getVideogamesById = (req, res) => {
   const { id } = req.params;
 

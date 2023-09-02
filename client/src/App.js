@@ -1,14 +1,9 @@
 import "./App.css";
-import {
-  Routes,
-  Route,
-  useLocation
-} from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
-// import Card from "./components/Card/Card";
 
 function App() {
   const [videogames, setVideogames] = useState([]);
@@ -28,12 +23,12 @@ function App() {
             ? setVideogames((videogames) => [...videogames, data])
             : alert("Duplicated videogame, please try another one");
 
-          // setTimeout(function () {
-          //   window.scrollTo({
-          //     top: document.documentElement.scrollHeight,
-          //     behavior: "auto",
-          //   });
-          // }, 500);
+          setTimeout(function () {
+            window.scrollTo({
+              top: document.documentElement.scrollHeight,
+              behavior: "auto",
+            });
+          }, 500);
         }
       } else {
         throw new Error("Network response was not ok");
@@ -46,7 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      {pathname !== "/" && (<NavBar onSearch={onSearch}/>)}
+      {pathname !== "/" && <NavBar onSearch={onSearch} />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home onSearch={onSearch} />} />
