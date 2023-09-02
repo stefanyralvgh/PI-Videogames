@@ -22,13 +22,13 @@
 // }
 
 import React from "react";
-import { CardContenedor } from "./CardStyles";
+import { CardContenedor, ImgCardContenedor } from "./CardStyles";
 
 
 function Card({ id, image, name, genres }) {
   return (
     <CardContenedor>
-      <img src={image} alt={name} />
+      <ImgCardContenedor src={image} alt={name} />
       <div>
         <h2>{name}</h2>
         <div>

@@ -9,10 +9,11 @@ export default function Cards() {
 
   useEffect(() => {
     dispatch(getVideogames());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
+        
       {videogames.map((game) => (
         <Card
           key={game.id}
@@ -22,6 +23,9 @@ export default function Cards() {
           genres={game.genres}
         />
       ))}
+      <div>
+        <h1>hola</h1>
+      </div>
     </div>
   );
 }
