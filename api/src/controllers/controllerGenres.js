@@ -14,46 +14,16 @@ const getGenres = (req, res) => {
 };
 
 
-// const fillDataBaseGenres = async () => {
-//   const url = "https://api.rawg.io/api/genres";
-
-//   try {
-//     const response = await axios.get(
-//       `${url}?key=${API_KEY}`
-//     );
-
-//     const genresData = response.data.results;
-   
-//     const genres = [];
-
-//     genresData.forEach((genreData) => {
-//       const genreInfo = {
-//         id: genreData.id,
-//         name: genreData.name              
-//       };
-
-//       genres.push(genreInfo);
-//     });
-
-      
-//     await Genre.bulkCreate(genres);
-
-//     console.log("genres database filled");
-//   } 
-// catch (error) {
-//     console.log(error);
-//   }
-// };
 
 const fillDataBaseGenres = async () => {
   const url = "https://api.rawg.io/api/genres";
-  const genresPerPage = 20; // Cantidad de géneros por página
+  const genresPerPage = 20; 
   let genres = [];
 
   try {
     let page = 1;
     let response;
-    let genresData; // Declarar la variable aquí
+    let genresData; 
 
     do {
       response = await axios.get(`${url}?key=${API_KEY}&page=${page}`);

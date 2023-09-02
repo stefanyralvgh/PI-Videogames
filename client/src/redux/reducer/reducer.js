@@ -1,18 +1,17 @@
 const initialState = {
     videogames: [],
-    error: null,
+    
   };
   
   const rootReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'GET_VIDEOGAMES_SUCCESS':
         return { ...state, videogames: action.payload, error: null };
-      case 'GET_VIDEOGAMES_ERROR':
-        return { ...state, videogames: [], error: action.payload };
+      
       default:
-        return state;
+        return { ...state };
     }
   };
   
-  export default reducer;
+  export default rootReducer;
   
