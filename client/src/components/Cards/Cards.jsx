@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions/actions";
 import Card from "../Card/Card";
+import { CardsContainer } from "./CardsStyles";
 
 export default function Cards() {
   const { videogames, page, perPage } = useSelector((state) => state);
@@ -15,8 +16,9 @@ export default function Cards() {
   const endIndex = startIndex + perPage;
   const displayedGames = videogames.slice(startIndex, endIndex);
 
+
   return (
-    <div>
+    <CardsContainer>
       {displayedGames.map((game) => (
         <Card
           key={game.id}
@@ -26,6 +28,6 @@ export default function Cards() {
           genres={game.genres}
         />
       ))}
-    </div>
+    </CardsContainer>
   );
 }

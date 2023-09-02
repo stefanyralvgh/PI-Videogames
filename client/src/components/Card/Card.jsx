@@ -1,24 +1,32 @@
 import React from "react";
-import { CardContenedor, ImgCardContenedor } from "./CardStyles";
+import {
+  CardContainer,
+  CardImage,
+  CardContent,
+  CardTitle,
+  GenreList,
+  GenreItem,
+} from "../Card/CardStyles";
 
 
 function Card({ image, name, genres }) {
+
   return (
-    <CardContenedor>
-      <ImgCardContenedor src={image} alt={name} />
-      <div>
-        <h2>{name}</h2>
-        <div>
+    <CardContainer>
+      <CardImage src={image} alt={name} />
+      <CardContent>
+        <CardTitle>{name}</CardTitle>
+        <GenreList>
           {genres && genres.length > 0 ? (
             genres.map((genre, index) => (
-              <span key={index}>{genre}</span>
+              <GenreItem key={index}>{genre}</GenreItem>
             ))
           ) : (
-            <span>No genres available</span>
+            <GenreItem>No genres available</GenreItem>
           )}
-        </div>
-      </div>
-    </CardContenedor>
+        </GenreList>
+      </CardContent>
+    </CardContainer>
   );
 }
 
