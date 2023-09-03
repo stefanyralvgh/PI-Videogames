@@ -1,9 +1,12 @@
-import { GET_VIDEOGAMES, SET_PAGE } from "./types";
+import { GET_VIDEOGAMES, SET_PAGE, 
+  // SEARCH_VIDEOGAMES 
+} from "./types";
 
 const initialState = {
-  videogames: [], 
-  page: 1, 
-  perPage: 15, 
+  videogames: [],
+  page: 1,
+  perPage: 15,
+  // searchResults: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,8 +17,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, page: action.payload };
     default:
       return state;
-  }
-};
+ 
+  }}
+
 
 export default reducer;
-

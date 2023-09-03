@@ -24,24 +24,24 @@ export default function Home(props) {
       
       {videogames.length > 0 ? (
         <div>
-          <Cards />
+          <Cards onSearch={props.onSearch} />
           <div>
             <NavigationButton
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
             >
-              Anterior
+              Previous
             </NavigationButton>
             <NavigationButton
               onClick={() => handlePageChange(page + 1)}
               disabled={videogames.length <= perPage * page}
             >
-              Siguiente
+              Next
             </NavigationButton>
           </div>
         </div>
       ) : (
-        <LoadingMessage>Cargando juegos...</LoadingMessage>
+        <LoadingMessage>Loading games...</LoadingMessage>
       )}
     </div>
   );
