@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions/actions";
-import Card from "../Card/Card";
 import { CardsContainer } from "./CardsStyles";
+import Card from "../Card/Card";
 
 export default function Cards() {
-  const [searchTerm, setSearchTerm] = useState(""); // Nuevo estado para el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState("");
   const { videogames, page, perPage } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -17,7 +17,6 @@ export default function Cards() {
     setSearchTerm(searchTerm);
   };
 
-  // Filtrar los juegos según el término de búsqueda
   const filteredGames = searchTerm
     ? videogames.filter((game) =>
         game.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -35,13 +34,14 @@ export default function Cards() {
 
   return (
     <div>
-      {/* Campo de entrada para la búsqueda */}
-      <input
-        type="text"
-        placeholder="Buscar juegos"
-        onChange={onSearch}
-        value={searchTerm}
-      />
+      <div>
+        <input
+          type="text"
+          placeholder="Buscar juegos"
+          onChange={onSearch}
+          value={searchTerm}
+        />
+      </div>
       <CardsContainer>
         {displayedGames.map((game) => (
           <Card

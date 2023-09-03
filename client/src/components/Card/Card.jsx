@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  CardContainer,
-  CardImage,
-  CardContent,
-  CardTitle,
-  GenreList,
-  GenreItem,
-} from "../Card/CardStyles";
+import { CardContainer, CardImage, CardContent, CardTitle, GenreList, GenreItem} from "../Card/CardStyles";
 
 
 function Card({ image, name, genres }) {
