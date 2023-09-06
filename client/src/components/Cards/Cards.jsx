@@ -49,7 +49,7 @@ export default function Cards() {
             id={game.id}
             image={game.image}
             name={game.name}
-            genres={game.genres}
+            genres={game.Genres} 
           />
         ))}
       </CardsContainer>
