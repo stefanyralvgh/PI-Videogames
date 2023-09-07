@@ -6,8 +6,6 @@ import axios from "axios";
 export default function Form(props) {
   const dispatch = useDispatch();
   const [selectedGenreIds, setSelectedGenreIds] = useState([]);
-
-
   const [errors, setErrors] = useState({ form: "Must complete the form" });
 
   const [form, setForm] = useState({
@@ -16,8 +14,8 @@ export default function Form(props) {
     image: "",
     release_date: "",
     rating: "0",
-    genres: [], // Inicializa genres como un arreglo vacío
-  platforms: [],
+    genres: [],
+    platforms: [],
   });
 
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -39,7 +37,9 @@ export default function Form(props) {
             }
 
             if (game.Genres && Array.isArray(game.Genres)) {
-              genresList.push(...game.Genres.map((genre) => genre.name));
+              genresList.push(
+                ...game.Genres.map((genre) => [genre.id, genre.name])
+              );
             }
           }
 
@@ -86,6 +86,16 @@ export default function Form(props) {
         );
       }
     }
+    if (e.target.name === "image") {
+      const file = e.target.files[0];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        setForm((prevState) => ({
+          ...prevState,
+          image: imageUrl,
+        }));
+      }
+    }
 
     setForm((prevState) => ({
       ...prevState,
@@ -120,93 +130,44 @@ export default function Form(props) {
     return errors;
   };
 
-  // const handleGenreChange = (e) => {
-  //   const genre = e.target.value;
-  //   const isChecked = e.target.checked;
-  
-  //   setSelectedGenres((prevGenres) => {
-  //     const updatedGenres = new Set(prevGenres);
-  
-  //     if (isChecked) {
-  //       updatedGenres.add(genre);
-  //     } else {
-  //       updatedGenres.delete(genre);
-  //     }
-  
-  //     return Array.from(updatedGenres); // Convierte el conjunto a un arreglo
-  //   });
-  // };
   const handleGenreChange = (e) => {
     const genreId = e.target.value;
     const isChecked = e.target.checked;
-  
+    console.log(genreId);
     setSelectedGenreIds((prevGenreIds) => {
       const updatedGenreIds = new Set(prevGenreIds);
-  
+
       if (isChecked) {
         updatedGenreIds.add(genreId);
       } else {
         updatedGenreIds.delete(genreId);
       }
-  
-      return Array.from(updatedGenreIds); // Convierte el conjunto a un arreglo
+
+      return Array.from(updatedGenreIds);
     });
   };
-  
-  
+
   const handlePlatformChange = (e) => {
     const platform = e.target.name;
     const isChecked = e.target.checked;
-  
+
     setSelectedPlatforms((prevPlatforms) => {
       const updatedPlatforms = new Set(prevPlatforms);
-  
+
       if (isChecked) {
         updatedPlatforms.add(platform);
       } else {
         updatedPlatforms.delete(platform);
       }
-  
-      return Array.from(updatedPlatforms); // Convierte el conjunto a un arreglo
+
+      return Array.from(updatedPlatforms);
     });
   };
-  
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   validate(form);
-  
-  //   let checkboxsErrors = [];
-  //   if (selectedGenres.length < 1) checkboxsErrors.push("Genres is required");
-  //   if (selectedPlatforms.length < 1)
-  //     checkboxsErrors.push("Platforms is required");
-  //   if (Object.values(errors).length || checkboxsErrors.length) {
-  //     return alert(Object.values(errors).concat(checkboxsErrors).join("\n"));
-  //   }
-  
-  //   // Crea un nuevo objeto que contiene los datos del formulario
-  //   const newGame = {
-  //     name: form.name,
-  //     description: form.description,
-  //     image: form.image,
-  //     release_date: form.release_date,
-  //     rating: form.rating,
-  //     genres: selectedGenres,     // Utiliza el arreglo de géneros seleccionados
-  //     platforms: selectedPlatforms, // Utiliza el arreglo de plataformas seleccionadas
-  //   };
-  
-  //   axios
-  //     .post("http://localhost:3001/videogames", newGame)
-  //     .then((res) => {
-  //       dispatch(addVideoGame(res.data));
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error creating the videogame:", error);
-  //     });
-  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     validate(form);
-  
+
     let checkboxsErrors = [];
     if (selectedGenreIds.length < 1) checkboxsErrors.push("Genres is required");
     if (selectedPlatforms.length < 1)
@@ -214,35 +175,34 @@ export default function Form(props) {
     if (Object.values(errors).length || checkboxsErrors.length) {
       return alert(Object.values(errors).concat(checkboxsErrors).join("\n"));
     }
-  
-    // Crea un nuevo objeto que contiene los datos del formulario
+
     const newGame = {
       name: form.name,
       description: form.description,
       image: form.image,
       release_date: form.release_date,
       rating: form.rating,
-      genres: selectedGenreIds,     // Utiliza el arreglo de IDs de géneros seleccionados
-      platforms: selectedPlatforms, // Utiliza el arreglo de plataformas seleccionadas
+      genres: selectedGenreIds,
+      platforms: selectedPlatforms,
     };
-  
+
     axios
       .post("http://localhost:3001/videogames", newGame)
       .then((res) => {
         dispatch(addVideoGame(res.data));
+        window.alert("Game created successfully!");
       })
       .catch((error) => {
         console.error("Error creating the videogame:", error);
+        window.alert("Error creating the game. Please try again.");
       });
   };
-  
-  
 
   return (
     <>
       <div className="main-add">
         <div className="container-add">
-          <h2>CREATE GAME - DETAILS -</h2>
+          <h2>CREATE NEW VIDEOGAME </h2>
           <div className="div-cont">
             <form onSubmit={handleSubmit} onChange={handleChange}>
               <label htmlFor="name" className="title-name">
@@ -274,17 +234,6 @@ export default function Form(props) {
               <label htmlFor="date" className="title-name">
                 <strong>Release Date: </strong>
               </label>
-              <label htmlFor="image" className="title-name">
-                <strong>Image: </strong>
-              </label>
-              <br />
-              <input
-                type="file"
-                accept=".jpg, .jpeg, .png"
-                id="image"
-                name="image"
-              />
-              <br />
               <input
                 name="release_date"
                 className="dt"
@@ -307,24 +256,44 @@ export default function Form(props) {
                 autoComplete="off"
               />
               <br />
-              <label className="title-name">
-                <strong>Genres:</strong>
+              <label htmlFor="image" className="title-name">
+                <strong>Image: </strong>
+              </label>
+              <br />
+              <input
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                id="image"
+                name="image"
+              />
+              <br />
+              {form.image && (
+                <img src={form.image} alt="Game Cover" className="game-image" />
+              )}
+              <br />
+              <label htmlFor="image" className="title-name">
+                <strong>Genres: </strong>
               </label>
               <div id="genres" className="genres-div">
-                {form.genres.map((genre, index) => (
-                  <div key={index}>
-                    <input
-                      name={genre}
-                      value={genre}
-                      type="checkbox"
-                      id={genre}
-                      onChange={handleGenreChange}
-                      checked={selectedGenres.includes(genre)}
-                    />
-                    <label htmlFor={genre}>{genre}.</label>
-                  </div>
-                ))}
+                {Array.from(new Set(form.genres.map((genre) => genre[1]))).map(
+                  (genreName, index) => (
+                    <div key={index}>
+                      <input
+                        name={genreName}
+                        value={
+                          form.genres.find((genre) => genre[1] === genreName)[0]
+                        }
+                        type="checkbox"
+                        id={genreName}
+                        onChange={handleGenreChange}
+                        checked={selectedGenres.includes(genreName)}
+                      />
+                      <label htmlFor={genreName}>{genreName}.</label>
+                    </div>
+                  )
+                )}
               </div>
+
               <label className="title-name">
                 <strong>Platforms: </strong>{" "}
               </label>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions/actions";
 import { CardsContainer } from "./CardsStyles";
@@ -44,6 +45,7 @@ export default function Cards() {
       </div>
       <CardsContainer>
         {displayedGames.map((game) => (
+          <Link to={`/detail/${game.id}`} key={game.id}>
           <Card
             key={game.id}
             id={game.id}
@@ -51,6 +53,7 @@ export default function Cards() {
             name={game.name}
             genres={game.Genres} 
           />
+          </Link>
         ))}
       </CardsContainer>
     </div>

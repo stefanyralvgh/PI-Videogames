@@ -20,6 +20,3 @@ export const addVideoGame = (videoGameData) => ({
   type: ADD_VIDEOGAMES,
   payload: videoGameData,
 });
-
-
-
