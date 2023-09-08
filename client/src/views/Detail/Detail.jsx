@@ -35,16 +35,20 @@ export default function Detail() {
     fetch(`http://localhost:3001/videogames/${detailId}`)
       .then((response) => response.json())
       .then((gameData) => {
-        if (gameData.name === "equis") {
+        if (gameData.name) {
+          const genresList = [];
+          gameData.Genres.forEach(genre => {
+            genresList.push(genre.name)
+          });
           setGame({
             id: gameData.id,
             name: gameData.name,
             image: gameData.image,
             platforms: gameData.platforms,
             description: gameData.description,
-            release_date: gameData.release_date,
+            release_date: gameData.release_date.substring(0, 10),
             rating: gameData.rating,
-            genres: gameData.genres,
+            genres: genresList,
        
           });
         } else {

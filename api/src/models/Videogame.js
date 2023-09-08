@@ -5,12 +5,9 @@ module.exports = (sequelize) => {
     "Videogame",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
-      // type: DataTypes.INTEGER,
-      // primaryKey: true,
-      // autoIncrement: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
       },
      
 

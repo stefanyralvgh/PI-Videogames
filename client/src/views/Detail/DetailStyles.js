@@ -24,7 +24,7 @@ export const DetailInfo = styled.div`
 `;
 
 export const DetailText = styled.p`
-  color: #efe9fc;
+  color: black;
 `;
 
 export const DetailTitle = styled.b`

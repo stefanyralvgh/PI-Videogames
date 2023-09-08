@@ -4,6 +4,13 @@ const { API_KEY } = process.env;
 const { Videogame, Genre } = require("../db");
 const { Op } = require("sequelize");
 
+
+function cleanHTML(descriptionHTML) {
+  const regex = /<[^>]*>/g;
+  const cleanedText = descriptionHTML.replace(regex, '');  
+  return cleanedText;
+}
+
 const fillDataBase = async () => {
   const url = "https://api.rawg.io/api/games";
   const totalGamesToFetch = 100;
@@ -36,7 +43,7 @@ const fillDataBase = async () => {
 
           const videogameInfo = {
             name: videogameData.name,
-            description: currentVideoGame.description || "Not found",
+            description: cleanHTML(currentVideoGame.description) || "Not found",
             image: videogameData.background_image,
             release_date: videogameData.released || "Not found",
             platforms: platforms,
