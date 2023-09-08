@@ -10,4 +10,3 @@ export const CardsContainer = styled.div`
   padding: 20px;
 `;
 
-
