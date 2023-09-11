@@ -27,16 +27,18 @@ export const SearchContainer = styled.div`
 export const SearchInput = styled.input`
   padding: 10px;
   font-size: 16px;
-  border: 2px solid #548690;
-  border-radius: 5px;
+  border: 2px solid #b8b8d1;
+  border-radius: 15px;
   outline: none;
   transition: border-color 0.3s ease-in-out;
+  display: flex;
+  justify-content: end;
 
   &::placeholder {
-    color: #a5be30;
+    color: #5b5f97;
   }
 
   &:focus {
-    border-color: #86a3a8;
+    border-color: #ff6b6c;
   }
 `;

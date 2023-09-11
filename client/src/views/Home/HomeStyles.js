@@ -58,6 +58,7 @@ export const FormLink = styled(Link)`
   text-decoration: none;
   font-size: 18px;
   color: #ff6b6c;
+  padding: 20px;
 
 `;
 
@@ -71,22 +72,21 @@ export const SelectContainer = styled.div`
 
 export const SelectLabel = styled.label`
   font-size: 16px;
-  padding: 20px;
+  padding: 8px;
   color: #5b5f97;
 `;
 
 export const Select = styled.select`
-  padding: 5px;
-  font-size: 16px;
   padding: 10px;
-  font-size: 16px;
-  background-color: #f5f5f5;
+  font-size: 14px;
+  background-color: #b8b8d1;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 20px;
   outline: none;
   cursor: pointer;
+  height: 35px;
 
   &:hover {
-    background-color: #e0e0e0;
+    background-color: #b8b8d1;
   }
 `;

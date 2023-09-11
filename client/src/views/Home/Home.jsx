@@ -20,12 +20,13 @@ export default function Home(props) {
   const { page, perPage } = useSelector((state) => state);
   const dispatch = useDispatch();
   const videogames = useSelector((state) => state.videogames);
-  const [selectedGenre, setSelectedGenre] = useState("Todos");
+  const [selectedGenre, setSelectedGenre] = useState("All");
   const [selectedAlphabeticalOrder, setSelectedAlphabeticalOrder] =
     useState("default");
   const [selectedSource, setSelectedSource] = useState("Todos");
   const [selectedRatingOrder, setSelectedRatingOrder] = useState("default");
   const [genres, setGenres] = useState([]);
+  
 
   useEffect(() => {
     dispatch(getVideogames());
@@ -58,7 +59,7 @@ export default function Home(props) {
   return (
     <Container>
       <HomeFilters>
-        <FormLink to="/form">CREATE NEW GAME</FormLink>
+      <FormLink to="/form">CREATE NEW GAME</FormLink>
         <FilterGroup>
           <SelectLabel>Genres:</SelectLabel>
           <Select
@@ -114,6 +115,7 @@ export default function Home(props) {
             selectedGenre={selectedGenre}
             selectedAlphabeticalOrder={selectedAlphabeticalOrder}
             selectedRatingOrder={selectedRatingOrder}
+            selectedSource={selectedSource}
           />
           <div>
             {pageNumbers.map((pageNumber) => (
