@@ -1,11 +1,11 @@
 import React from "react";
 import {
   DetailContainer,
-  DetailInfo,
-  DetailText,
   DetailTitle,
   DetailImage,
   DetailButton,
+  DetailText,
+  ButtonItem,
 } from "./DetailStyles";
 import { BiArrowBack } from "react-icons/bi";
 import Loading from "../Loading/Loading";
@@ -37,8 +37,8 @@ export default function Detail() {
       .then((gameData) => {
         if (gameData.name) {
           const genresList = [];
-          gameData.Genres.forEach(genre => {
-            genresList.push(genre.name)
+          gameData.Genres.forEach((genre) => {
+            genresList.push(genre.name);
           });
           setGame({
             id: gameData.id,
@@ -49,7 +49,6 @@ export default function Detail() {
             release_date: gameData.release_date.substring(0, 10),
             rating: gameData.rating,
             genres: genresList,
-       
           });
         } else {
           window.alert("There are no videogames with that ID");
@@ -67,57 +66,53 @@ export default function Detail() {
 
   return (
     <div>
-      {console.log(isLoading)}
       {isLoading || isDataLoading ? (
         <Loading />
       ) : (
         <div>
           <DetailContainer>
-            <DetailInfo>
-              {game.id && (
-                <DetailText>
-                  <DetailTitle>ID:</DetailTitle> {game.id}
-                </DetailText>
-              )}
-              {game.name && (
-                <DetailText>
-                  <DetailTitle>Name:</DetailTitle> {game.name}
-                </DetailText>
-              )}
-              {game.image && (
-                <DetailImage src={game.image} alt={`Image of ${game.name}`} />
-              )}
-              {game.platforms.length > 0 && (
-                <DetailText>
-                  <DetailTitle>Platforms:</DetailTitle>{" "}
-                  {game.platforms.join(", ")}
-                </DetailText>
-              )}
-              {game.genres.length > 0 && (
-                <DetailText>
-                  <DetailTitle>Genres:</DetailTitle>{" "}
-                  {game.genres.join(", ")}
-                </DetailText>
-              )}
-              {game.description && (
-                <DetailText>
-                  <DetailTitle>Description:</DetailTitle> {game.description}
-                </DetailText>
-              )}
-              {game.release_date && (
-                <DetailText>
-                  <DetailTitle>Release date:</DetailTitle>{" "}
-                  {game.release_date}
-                </DetailText>
-              )}
-            </DetailInfo>
+            <DetailImage src={game.image} alt={`Image of ${game.name}`} />
+
+            <div>
+              <DetailTitle>ID </DetailTitle>
+              <DetailText>{game.id}</DetailText>
+              
+            </div>
+            <div>
+              <DetailTitle>NAME</DetailTitle>
+              <DetailText>{game.name}</DetailText>
+            </div>
+            <div>
+              <DetailTitle>RELEASE DATE</DetailTitle>
+              <DetailText>{game.release_date}</DetailText>
+            </div>
+            <div>
+              <DetailTitle>DESCRIPTION</DetailTitle>
+              <DetailText>{game.description}</DetailText>
+            </div>
+            <div>
+              <DetailTitle>PLATFORMS</DetailTitle>{" "}
+              <div>
+                {game.platforms.map((platform, index) => (
+                  <ButtonItem key={index}>{platform}</ButtonItem>
+                ))}
+              </div>
+            </div>
+            <div>
+              <DetailTitle>GENRES</DetailTitle>{" "}
+              <div>
+                {game.genres.map((genre, index) => (
+                  <ButtonItem key={index}>{genre}</ButtonItem>
+                ))}
+              </div>
+            </div>
           </DetailContainer>
+
           <DetailButton onClick={() => navigate("/home")}>
             <BiArrowBack /> Back
           </DetailButton>
         </div>
       )}
     </div>
-  
   );
 }

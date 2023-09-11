@@ -8,9 +8,11 @@ import {
   LoadingMessage,
   FormLink,
   Container,
-  SelectContainer,
   SelectLabel,
   Select,
+  HomeFilters,
+  FilterGroup,
+  
 } from "./HomeStyles.js";
 import axios from "axios";
 
@@ -55,51 +57,56 @@ export default function Home(props) {
 
   return (
     <Container>
-      <FormLink to="/form">CREATE A NEW GAME</FormLink>
-      <SelectContainer>
-        <SelectLabel>Filter by genre:</SelectLabel>
-        <Select
-          value={selectedGenre}
-          onChange={(e) => setSelectedGenre(e.target.value)}
-        >
-          <option value="Todos">All genres</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.name}>
-              {genre.name}
-            </option>
-          ))}
-        </Select>
-      </SelectContainer>
-      <SelectContainer>
-        <SelectLabel>Alphabetical order:</SelectLabel>
-        <Select
-          value={selectedAlphabeticalOrder}
-          onChange={(e) => setSelectedAlphabeticalOrder(e.target.value)}
-        >
-          <option value="default">Default</option>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </Select>
-      </SelectContainer>
-      <SelectContainer>
-        <SelectLabel>Order by rating:</SelectLabel>
-        <Select
-          value={selectedRatingOrder}
-          onChange={(e) => setSelectedRatingOrder(e.target.value)}
-        >
-          <option value="default">Order by default rating</option>
-          <option value="ratingAsc">Ascending</option>
-          <option value="ratingDesc">Descending</option>
-        </Select>
-        <Select
-          value={selectedSource}
-          onChange={(e) => setSelectedSource(e.target.value)}
-        >
-          <option value="Todos">All origins</option>
-          <option value="API">API</option>
-          <option value="DB">Database</option>
-        </Select>
-      </SelectContainer>
+      <HomeFilters>
+        <FormLink to="/form">CREATE NEW GAME</FormLink>
+        <FilterGroup>
+          <SelectLabel>Genres:</SelectLabel>
+          <Select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+          >
+            <option value="All">All genres</option>
+            {genres.map((genre) => (
+              <option key={genre.id} value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
+          </Select>
+        </FilterGroup>
+        <FilterGroup>
+          <SelectLabel>Alphabetical order:</SelectLabel>
+          <Select
+            value={selectedAlphabeticalOrder}
+            onChange={(e) => setSelectedAlphabeticalOrder(e.target.value)}
+          >
+            <option value="default">Default</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </Select>
+        </FilterGroup>
+        <FilterGroup>
+          <SelectLabel>Rating:</SelectLabel>
+          <Select
+            value={selectedRatingOrder}
+            onChange={(e) => setSelectedRatingOrder(e.target.value)}
+          >
+            <option value="default">Default rating</option>
+            <option value="ratingAsc">Ascending</option>
+            <option value="ratingDesc">Descending</option>
+          </Select>
+        </FilterGroup>
+        <FilterGroup>
+          <SelectLabel>Origins:</SelectLabel>
+          <Select
+            value={selectedSource}
+            onChange={(e) => setSelectedSource(e.target.value)}
+          >
+            <option value="Todos">All origins</option>
+            <option value="API">API</option>
+            <option value="DB">Database</option>
+          </Select>
+        </FilterGroup>
+      </HomeFilters>
       {videogames.length > 0 ? (
         <div>
           <Cards
@@ -126,6 +133,3 @@ export default function Home(props) {
     </Container>
   );
 }
-
-
-

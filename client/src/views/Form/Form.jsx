@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addVideoGame } from "../../redux/actions/actions";
+import {
+  FormContainer,
+  FormTitle,
+  FormGroup,
+  FormButton,
+  FormLabel,
+  FormInput,
+  FormLabelOptions,
+  PageContainer,
+  CheckboxContainer
+} from "../Form/FormStyles";
 import axios from "axios";
 
 export default function Form(props) {
@@ -200,16 +211,14 @@ export default function Form(props) {
 
   return (
     <>
-      <div className="main-add">
-        <div className="container-add">
-          <h2>CREATE NEW VIDEOGAME </h2>
-          <div className="div-cont">
-            <form onSubmit={handleSubmit} onChange={handleChange}>
-              <label htmlFor="name" className="title-name">
-                <strong>Name: </strong>
-              </label>
+      <PageContainer>
+        <div>
+          <FormTitle>CREATE NEW VIDEOGAME </FormTitle>
+          <FormGroup>
+            <FormContainer onSubmit={handleSubmit} onChange={handleChange}>
+              <FormLabel htmlFor="name">Name:</FormLabel>
               <br />
-              <input
+              <FormInput
                 className="name"
                 placeholder="Name"
                 type="text"
@@ -218,9 +227,9 @@ export default function Form(props) {
                 autoComplete="off"
               />
               <br />
-              <label htmlFor="description" className="title-name">
+              <FormLabel htmlFor="description">
                 <strong>Description: </strong>
-              </label>
+              </FormLabel>
               <br />
               <textarea
                 className="name"
@@ -231,10 +240,11 @@ export default function Form(props) {
                 rows="3"
               />
               <br />
-              <label htmlFor="date" className="title-name">
+              <FormLabel htmlFor="date">
                 <strong>Release Date: </strong>
-              </label>
-              <input
+              </FormLabel>
+              
+              <FormInput
                 name="release_date"
                 className="dt"
                 type="date"
@@ -242,11 +252,11 @@ export default function Form(props) {
                 required
               />
               <br />
-              <label htmlFor="rating" className="title-name">
+              <FormLabel htmlFor="rating">
                 <strong>Rating: </strong>
-              </label>
-              <br />
-              <input
+              </FormLabel>
+              
+              <FormInput
                 name="rating"
                 className="dt"
                 placeholder="Rate from 1 to 5"
@@ -256,25 +266,24 @@ export default function Form(props) {
                 autoComplete="off"
               />
               <br />
-              <label htmlFor="image" className="title-name">
+              <FormLabel >
                 <strong>Image: </strong>
-              </label>
-              <br />
-              <input
+              </FormLabel>
+    
+              <FormInput
+                htmlFor="image"
                 type="file"
                 accept=".jpg, .jpeg, .png"
                 id="image"
                 name="image"
               />
               <br />
-              {form.image && (
-                <img src={form.image} alt="Game Cover" className="game-image" />
-              )}
+              {form.image && <img src={form.image} alt="Game Cover" />}
               <br />
-              <label htmlFor="image" className="title-name">
+              <FormLabel>
                 <strong>Genres: </strong>
-              </label>
-              <div id="genres" className="genres-div">
+              </FormLabel>
+              <CheckboxContainer>
                 {Array.from(new Set(form.genres.map((genre) => genre[1]))).map(
                   (genreName, index) => (
                     <div key={index}>
@@ -288,37 +297,41 @@ export default function Form(props) {
                         onChange={handleGenreChange}
                         checked={selectedGenres.includes(genreName)}
                       />
-                      <label htmlFor={genreName}>{genreName}.</label>
+                      <FormLabelOptions htmlFor={genreName}>
+                        {genreName}.
+                      </FormLabelOptions>
                     </div>
                   )
                 )}
-              </div>
+              </CheckboxContainer>
 
-              <label className="title-name">
-                <strong>Platforms: </strong>{" "}
-              </label>
-              <div id="platforms" className="plat-div">
+              <FormLabel>
+                Platforms: 
+              </FormLabel>
+              <CheckboxContainer>
                 {form.platforms.map((platform, index) => (
                   <div key={index}>
-                    <input
+                    <FormInput
                       name={platform}
                       type="checkbox"
                       id={platform}
                       onChange={handlePlatformChange}
                       checked={selectedPlatforms.includes(platform)}
                     />
-                    <label htmlFor={platform}>{platform}.</label>
+                    <FormLabelOptions htmlFor={platform}>
+                      {platform}.
+                    </FormLabelOptions>
                   </div>
                 ))}
-              </div>
+              </CheckboxContainer>
               <br />
-              <div className="div-but-form">
-                <button type="submit">Create</button>
+              <div>
+                <FormButton type="submit">Create</FormButton>
               </div>
-            </form>
-          </div>
+            </FormContainer>
+          </FormGroup>
         </div>
-      </div>
+      </PageContainer>
     </>
   );
 }

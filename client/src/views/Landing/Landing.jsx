@@ -6,6 +6,8 @@ import {
   Overlay,
   Content,
   OverlayImage,
+  LandingTitle,
+  LandingSubtitle,
 } from "./LandingStyles";
 import { useNavigate } from "react-router-dom";
 
@@ -18,13 +20,13 @@ export default function Landing() {
 
   return (
     <LandingContainer>
-      <LandingImage src="./Images/OIP.jpeg" alt="Landing Image" />
+      <LandingImage src="./Images/OIP.jpg" alt="Landing Image" />
       <Overlay>
-        <OverlayImage src="./Images/OIP2.png" alt="Overlay Image" />
+        <OverlayImage src="./Images/OIP.jpg" alt="Overlay Image" />
         <Content>
-          <h1>GAME ON</h1>
-          <p>Your Gaming Journey Begins Here</p>
-          <LandingButton onClick={goHome}>START</LandingButton>
+          <LandingTitle>GAME ON</LandingTitle>
+          <LandingSubtitle>Your Gaming Journey Begins Here</LandingSubtitle>
+          <LandingButton onClick={goHome}>DISCOVER GAMES</LandingButton>
         </Content>
       </Overlay>
     </LandingContainer>

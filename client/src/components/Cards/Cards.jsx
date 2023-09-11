@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions/actions";
-import { CardsContainer } from "./CardsStyles";
+import { CardsContainer, LinkToDetail, SearchContainer } from "./CardsStyles";
 import Card from "../Card/Card";
+
+
+
 export default function Cards({
   selectedAlphabeticalOrder,
   selectedRatingOrder,
+  selectedSource
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const { videogames, page, perPage } = useSelector((state) => state);
@@ -47,6 +50,16 @@ export default function Cards({
     }
   };
 
+  // const getBySource= (games) => {
+  //   if (selectedSource === "API") {
+  //     return games.filter(game => game.id <= 100);
+  //   } else if (selectedSource === "Database") {
+  //     return games.filter(game => game.id > 100);
+  //   } else {
+  //     return games;
+  //   }
+  // };
+
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;
 
@@ -62,17 +75,17 @@ export default function Cards({
 
   return (
     <div>
-      <div>
+      <SearchContainer>
         <input
           type="text"
           placeholder="Buscar juegos"
           onChange={onSearch}
           value={searchTerm}
         />
-      </div>
+      </SearchContainer>
       <CardsContainer>
         {displayedGames.map((game) => (
-          <Link to={`/detail/${game.id}`} key={game.id}>
+          <LinkToDetail to={`/detail/${game.id}`} key={game.id}>
             <Card
               key={game.id}
               id={game.id}
@@ -80,7 +93,7 @@ export default function Cards({
               name={game.name}
               genres={game.Genres}
             />
-          </Link>
+          </LinkToDetail>
         ))}
       </CardsContainer>
     </div>
