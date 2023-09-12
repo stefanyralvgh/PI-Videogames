@@ -13,7 +13,7 @@ function Card({ image, name, genres }) {
     <CardContainer>
       <CardImage src={image} alt={name} />
       <CardContent>
-        <CardTitle>{name}</CardTitle>
+        <CardTitle style={{  textTransform: 'uppercase' }}>{name}</CardTitle>
         <GenreList>
           {genres && genres.length > 0 ? (
             genres.map((genre, index) => (

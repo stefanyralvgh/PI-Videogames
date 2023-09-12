@@ -6,15 +6,14 @@ import { getVideogames } from "../../redux/actions/actions";
 import {
   NavigationButton,
   LoadingMessage,
-  FormLink,
   Container,
   SelectLabel,
   Select,
   HomeFilters,
   FilterGroup,
-  
 } from "./HomeStyles.js";
 import axios from "axios";
+
 
 export default function Home(props) {
   const { page, perPage } = useSelector((state) => state);
@@ -26,7 +25,6 @@ export default function Home(props) {
   const [selectedSource, setSelectedSource] = useState("Todos");
   const [selectedRatingOrder, setSelectedRatingOrder] = useState("default");
   const [genres, setGenres] = useState([]);
-  
 
   useEffect(() => {
     dispatch(getVideogames());
@@ -59,7 +57,6 @@ export default function Home(props) {
   return (
     <Container>
       <HomeFilters>
-      <FormLink to="/form">CREATE NEW GAME</FormLink>
         <FilterGroup>
           <SelectLabel>Genres:</SelectLabel>
           <Select
@@ -118,6 +115,12 @@ export default function Home(props) {
             selectedSource={selectedSource}
           />
           <div>
+            <NavigationButton
+              onClick={() => handlePageChange(page - 1)} 
+              disabled={page === 1}
+            >
+              {"<"} 
+            </NavigationButton>
             {pageNumbers.map((pageNumber) => (
               <NavigationButton
                 key={pageNumber}
@@ -127,6 +130,12 @@ export default function Home(props) {
                 {pageNumber}
               </NavigationButton>
             ))}
+            <NavigationButton
+              onClick={() => handlePageChange(page + 1)} 
+              disabled={page === totalPages}
+            >
+               {">"}
+            </NavigationButton>
           </div>
         </div>
       ) : (

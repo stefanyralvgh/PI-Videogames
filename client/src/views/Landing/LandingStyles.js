@@ -497,7 +497,6 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(165, 190, 48, 0.6);  */
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -7,7 +7,6 @@ import {
   DetailText,
   ButtonItem,
 } from "./DetailStyles";
-import { BiArrowBack } from "react-icons/bi";
 import Loading from "../Loading/Loading";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -80,7 +79,7 @@ export default function Detail() {
             </div>
             <div>
               <DetailTitle>NAME</DetailTitle>
-              <DetailText>{game.name}</DetailText>
+              <DetailText  style={{ fontSize: '20px', textTransform: 'uppercase' }}>{game.name}</DetailText>
             </div>
             <div>
               <DetailTitle>RELEASE DATE</DetailTitle>
@@ -88,7 +87,7 @@ export default function Detail() {
             </div>
             <div>
               <DetailTitle>DESCRIPTION</DetailTitle>
-              <DetailText>{game.description}</DetailText>
+              <DetailText style={{ fontSize: '18px' }}>{game.description}</DetailText>
             </div>
             <div>
               <DetailTitle>PLATFORMS</DetailTitle>{" "}
@@ -109,7 +108,7 @@ export default function Detail() {
           </DetailContainer>
 
           <DetailButton onClick={() => navigate("/home")}>
-            <BiArrowBack /> Back
+             GO HOME
           </DetailButton>
         </div>
       )}

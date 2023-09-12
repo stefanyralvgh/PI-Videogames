@@ -33,6 +33,7 @@ export const SearchInput = styled.input`
   transition: border-color 0.3s ease-in-out;
   display: flex;
   justify-content: end;
+  height: 13px;
 
   &::placeholder {
     color: #5b5f97;
@@ -40,5 +41,16 @@ export const SearchInput = styled.input`
 
   &:focus {
     border-color: #ff6b6c;
+    color: #5b5f97;
   }
+`;
+
+export const FormLink = styled(Link)`
+  text-decoration: none;
+  font-size: 18px;
+  color: #ff6b6c;
+  padding: 20px;
+  background-color: #FFFFFB;
+  font-weight: bold;
+  font-family: 'Chakra Petch', sans-serif;
 `;

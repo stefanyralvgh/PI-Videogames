@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const NavigationButton = styled.button`
-  background-color: #ffc145;
+  background-color: #ff6b6c;
   color: #fffffb;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 10px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
@@ -14,11 +13,12 @@ export const NavigationButton = styled.button`
 
   &:disabled {
     background-color: #fffffb;
-    color: #ffc145;
+    color: #ff4d4d;
   }
 
   &:hover {
-    background-color: #ffaa00;
+    background-color: #ff4d4d;
+    color: #fffffb;
   }
 `;
 
@@ -42,6 +42,7 @@ export const FilterGroup = styled.div`
 display: flex;
 align-items: center;
 margin-right: 20px;
+font-family: 'Chakra Petch', sans-serif;
 `;
 
 
@@ -51,14 +52,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-`;
-
-export const FormLink = styled(Link)`
-  text-decoration: none;
-  font-size: 18px;
-  color: #ff6b6c;
-  padding: 20px;
 
 `;
 
@@ -74,19 +67,20 @@ export const SelectLabel = styled.label`
   font-size: 16px;
   padding: 8px;
   color: #5b5f97;
+  font-weight:bold
 `;
 
 export const Select = styled.select`
   padding: 10px;
-  font-size: 14px;
-  background-color: #b8b8d1;
+  font-size: 13px;
+  background-color: #e0e0eb;
   border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;
   cursor: pointer;
-  height: 35px;
+  height: 37px;
 
   &:hover {
-    background-color: #b8b8d1;
+    background-color:#e0e0eb;
   }
 `;
