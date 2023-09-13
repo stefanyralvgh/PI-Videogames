@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../../redux/actions/actions";
-import { CardsContainer, LinkToDetail, SearchContainer, SearchInput, FormLink } from "./CardsStyles";
+import {
+  CardsContainer,
+  LinkToDetail,
+  SearchContainer,
+  SearchInput,
+  FormLink,
+} from "./CardsStyles";
 import Card from "../Card/Card";
-
-
 
 export default function Cards({
   selectedGenre,
   selectedAlphabeticalOrder,
   selectedRatingOrder,
   selectedSource,
-
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const { videogames, page, perPage } = useSelector((state) => state);
@@ -21,17 +24,13 @@ export default function Cards({
     dispatch(getVideogames());
   }, [dispatch]);
 
- 
   useEffect(() => {
     dispatch(getVideogames());
   }, [dispatch, selectedSource]);
-  
 
-    
-    useEffect(() => {
-      dispatch(getVideogames());
-    }, [dispatch, selectedGenre]);
-   
+  useEffect(() => {
+    dispatch(getVideogames());
+  }, [dispatch, selectedGenre]);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
@@ -43,22 +42,22 @@ export default function Cards({
       )
     : videogames;
 
+
   const sortAlphabetically = (games) => {
     if (selectedAlphabeticalOrder === "asc") {
-      return games.sort((a, b) => a.name.localeCompare(b.name));
+      return [...games].sort((a, b) => a.name.localeCompare(b.name));
     } else if (selectedAlphabeticalOrder === "desc") {
-      return games.sort((a, b) => b.name.localeCompare(a.name));
+      return [...games].sort((a, b) => b.name.localeCompare(a.name));
     } else {
       return games;
     }
   };
 
-
   const sortByRating = (games) => {
     if (selectedRatingOrder === "ratingAsc") {
-      return games.sort((a, b) => a.rating - b.rating);
+      return [...games].sort((a, b) => a.rating - b.rating);
     } else if (selectedRatingOrder === "ratingDesc") {
-      return games.sort((a, b) => b.rating - a.rating);
+      return [...games].sort((a, b) => b.rating - a.rating);
     } else {
       return games;
     }
@@ -68,18 +67,14 @@ export default function Cards({
     if (selectedSource === "API") {
       const filteredSourceGames = videogames.filter((game) => game.id <= 100);
       return filteredSourceGames;
-
-    } 
-    else if(selectedSource === "DB"){
+    } else if (selectedSource === "DB") {
       const filteredSourceGames = videogames.filter((game) => game.id > 100);
       return filteredSourceGames;
-
+    } else {
+      return videogames;
     }
-    else{
-       return videogames;
-    }
-  }
-  console.log(selectedGenre)
+  };
+ 
   const getByGenre = (videogames, genre) => {
     if (genre === "All") {
       return videogames;
@@ -89,14 +84,18 @@ export default function Cards({
       );
       return filteredGenreGames;
     }
-  }
-
+  };
 
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;
 
-
-  let sortedGames = getByGenre(getBySource(sortByRating(sortAlphabetically(filteredGames)), selectedSource), selectedGenre);
+  let sortedGames = getByGenre(
+    getBySource(
+      sortByRating(sortAlphabetically(filteredGames)),
+      selectedSource
+    ),
+    selectedGenre
+  );
 
   let displayedGames = sortedGames.slice(startIndex, endIndex);
 
@@ -108,9 +107,15 @@ export default function Cards({
   return (
     <div>
       <SearchContainer>
-      <FormLink to="/form">
-        <img width="30" height="30" src="./Images/ADD.png" alt="ADD NEW GAME" title="ADD A NEW GAME"/>
-      </FormLink>
+        <FormLink to="/form">
+          <img
+            width="30"
+            height="30"
+            src="./Images/ADD.png"
+            alt="ADD NEW GAME"
+            title="ADD A NEW GAME"
+          />
+        </FormLink>
         <SearchInput
           type="text"
           placeholder="Search game"

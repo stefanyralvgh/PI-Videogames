@@ -22,7 +22,7 @@ export default function Home(props) {
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [selectedAlphabeticalOrder, setSelectedAlphabeticalOrder] =
     useState("default");
-  const [selectedSource, setSelectedSource] = useState("Todos");
+  const [selectedSource, setSelectedSource] = useState("All");
   const [selectedRatingOrder, setSelectedRatingOrder] = useState("default");
   const [genres, setGenres] = useState([]);
 
@@ -72,6 +72,17 @@ export default function Home(props) {
           </Select>
         </FilterGroup>
         <FilterGroup>
+          <SelectLabel>Origins:</SelectLabel>
+          <Select
+            value={selectedSource}
+            onChange={(e) => setSelectedSource(e.target.value)}
+          >
+            <option value="All">All origins</option>
+            <option value="API">API</option>
+            <option value="DB">Database</option>
+          </Select>
+        </FilterGroup>
+        <FilterGroup>
           <SelectLabel>Alphabetical order:</SelectLabel>
           <Select
             value={selectedAlphabeticalOrder}
@@ -91,17 +102,6 @@ export default function Home(props) {
             <option value="default">Default rating</option>
             <option value="ratingAsc">Ascending</option>
             <option value="ratingDesc">Descending</option>
-          </Select>
-        </FilterGroup>
-        <FilterGroup>
-          <SelectLabel>Origins:</SelectLabel>
-          <Select
-            value={selectedSource}
-            onChange={(e) => setSelectedSource(e.target.value)}
-          >
-            <option value="Todos">All origins</option>
-            <option value="API">API</option>
-            <option value="DB">Database</option>
           </Select>
         </FilterGroup>
       </HomeFilters>

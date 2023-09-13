@@ -82,6 +82,10 @@ export default function Detail() {
               <DetailText  style={{ fontSize: '20px', textTransform: 'uppercase' }}>{game.name}</DetailText>
             </div>
             <div>
+              <DetailTitle>RATING</DetailTitle>
+              <DetailText>{game.rating}</DetailText>
+            </div>
+            <div>
               <DetailTitle>RELEASE DATE</DetailTitle>
               <DetailText>{game.release_date}</DetailText>
             </div>

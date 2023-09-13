@@ -16,8 +16,8 @@ export const FormContainer = styled.div`
 `;
 
 export const FormTitle = styled.h1`
-  font-family: 'Chakra Petch', sans-serif;
-  color: #ffc247; 
+  font-family: "Chakra Petch", sans-serif;
+  color: #ffc247;
   font-weight: bolder;
   font-size: 36px;
 `;
@@ -31,7 +31,7 @@ export const FormGroup = styled.div`
 `;
 
 export const FormLabel = styled.label`
-  color: #ffc247; 
+  color: #ffc247;
   font-weight: bolder;
   padding: 10px;
   margin: 10px;
@@ -45,10 +45,10 @@ export const FormLabelCheckbox = styled.label`
 `;
 
 export const FormInput = styled.input`
- padding: 10px;
+  padding: 10px;
   font-size: 16px;
   border: 2px solid #b8b8d1;
-  border-radius: 20px ;
+  border-radius: 20px;
   outline: none;
   transition: border-color 0.3s ease-in-out;
   display: flex;
@@ -57,7 +57,6 @@ export const FormInput = styled.input`
   width: 40%;
   margin-top: 10px;
   margin-bottom: 10px;
-  
 
   &::placeholder {
     color: #5b5f97;
@@ -67,12 +66,36 @@ export const FormInput = styled.input`
     border-color: #ff6b6c;
     color: #5b5f97;
   }
-  `;
-export const FormInputDate = styled.input`
- padding: 10px;
+`;
+export const FormTextTarea = styled.textarea`
+  padding: 10px;
   font-size: 16px;
   border: 2px solid #b8b8d1;
-  border-radius: 20px ;
+  border-radius: 20px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  display: flex;
+  margin: auto;
+  height: 13px;
+  width: 40%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &::placeholder {
+    color: #5b5f97;
+  }
+
+  &:focus {
+    border-color: #ff6b6c;
+    color: #5b5f97;
+  }
+`;
+
+export const FormInputDate = styled.input`
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #b8b8d1;
+  border-radius: 20px;
   outline: none;
   transition: border-color 0.3s ease-in-out;
   display: flex;
@@ -89,18 +112,25 @@ export const FormInputDate = styled.input`
     border-color: #ff6b6c;
     color: #5b5f97;
   }
-  `;
-
+`;
 
 export const FormButton = styled.button`
-  color: #fffffb; 
-align-items: center;
-  background-color: #ff6b6c; 
+  color: #fffffb;
+  align-items: center;
+  background-color: #ff6b6c;
   border: none;
   border-radius: 20px;
   padding: 10px 20px;
   cursor: pointer;
   margin-bottom: 20px;
+  &:disabled {
+    background-color: #ffcccc;
+  }
+`;
+
+export const ErrorMessage = styled.p`
+  color: red;
+  
 `;
 
 export const FormImage = styled.img`
@@ -114,5 +144,4 @@ export const CheckboxContainer = styled.div`
   flex-wrap: wrap;
   margin: 20px;
   width: 800px;
-  
 `;
