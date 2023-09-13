@@ -2,22 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addVideoGame } from "../../redux/actions/actions";
 import {
-  FormTitle,
-  FormFirst,
-  FormSecond,
   FormContainer,
+  FormTitle,
   FormGroup,
-  FormLabel,
-  FormInput,
-  FormCheckbox,
-  FormTextarea,
   FormButton,
-  CheckboxContainer,
-  LabelCheckbox
-} from "./FormStyles"; 
+  FormLabel,
+  FormInput,  
+  FormLabelCheckbox,
+  CheckboxContainer
+} from "../Form/FormStyles";
 import axios from "axios";
 
-export default function Form(props) {
+export default function Form() {
   const dispatch = useDispatch();
   const [selectedGenreIds, setSelectedGenreIds] = useState([]);
   const [errors, setErrors] = useState({ form: "Must complete the form" });
@@ -101,13 +97,14 @@ export default function Form(props) {
       }
     }
     if (e.target.name === "image") {
-      const imageUrl = e.target.value;
-
-      setForm((prevState) => ({
-        ...prevState,
-        image: imageUrl,
-      }));
-    }
+            const imageUrl = e.target.value;
+      
+            setForm((prevState) => ({
+              ...prevState,
+              image: imageUrl,
+            }));
+          
+          }
 
     setForm((prevState) => ({
       ...prevState,
@@ -211,120 +208,133 @@ export default function Form(props) {
   };
 
   return (
-    <div>
-      <FormTitle>CREATE NEW VIDEOGAME </FormTitle>
-    <FormContainer>
-      
-      
-      <form onSubmit={handleSubmit} onChange={handleChange}>
-        <FormFirst>
-          <FormGroup>
-            <FormLabel htmlFor="name">Name:</FormLabel>
-            <FormInput
-              className="name"
-              placeholder="Name"
-              type="text"
-              id="name"
-              name="name"
-              autoComplete="off"
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel htmlFor="description">Description:</FormLabel>
-            <FormTextarea
-              className="name"
-              name="description"
-              placeholder="Description..."
-              id="description"
-              cols="30"
-              rows="3"
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel htmlFor="date">Release Date:</FormLabel>
-            <FormInput
-              name="release_date"
-              className="dt"
-              type="date"
-              id="date"
-              required
-            />
-          </FormGroup>
-        </FormFirst>
-        <FormSecond>
-          <FormGroup>
-            <FormLabel htmlFor="rating">Rating:</FormLabel>
-            <FormInput
-              name="rating"
-              className="dt"
-              placeholder="Rate from 1 to 5"
-              type="tel"
-              id="rating"
-              maxLength="1"
-              autoComplete="off"
-            />
-          </FormGroup>
-          <FormGroup>
-            <FormLabel htmlFor="image">Image:</FormLabel>
-            <FormInput
-              type="text"
-              placeholder="Insert image URL"
-              id="image"
-              name="image"
-            />
-            {form.image && <img src={form.image} alt="Game Cover" />}
-          </FormGroup>
-        </FormSecond>
-        <br />
+    <>
+      <div>
         <div>
-        <div>
-          <FormLabel htmlFor="image">Genres:</FormLabel>
-          <br />
-          <CheckboxContainer id="genres">
-            {Array.from(new Set(form.genres.map((genre) => genre[1]))).map(
-              (genreName, index) => (
-                <div key={index}>
-                  <input
-                    name={genreName}
-                    value={form.genres.find((genre) => genre[1] === genreName)[0]}
-                    type="checkbox"
-                    id={genreName}
-                    onChange={handleGenreChange}
-                    checked={selectedGenres.includes(genreName)}
-                  />
-                  <LabelCheckbox htmlFor={genreName}>{genreName}.</LabelCheckbox>
-                </div>
-              )
-            )}
-          </CheckboxContainer>
-        </div>
-
-        <div>
-          <FormLabel className="title-name">
-            <strong>Platforms: </strong>{" "}
-          </FormLabel>
-          <CheckboxContainer id="platforms" className="plat-div">
-            {form.platforms.map((platform, index) => (
-              <div key={index}>
-                <FormInput
-                  name={platform}
-                  type="checkbox"
-                  id={platform}
-                  onChange={handlePlatformChange}
-                  checked={selectedPlatforms.includes(platform)}
+          <FormTitle>CREATE NEW VIDEOGAME </FormTitle>
+          <FormGroup>
+            <form onSubmit={handleSubmit} onChange={handleChange}>
+              <FormLabel htmlFor="name">Name</FormLabel>    
+                
+              <FormInput
+                className="name"
+                placeholder="Name"
+                type="text"
+                id="name"
+                name="name"
+                autoComplete="off"
+              />
+              <FormLabel htmlFor="description">
+                Description
+              </FormLabel>
+            
+              
+              <FormInput
+                className="name"
+                name="description"
+                placeholder="Description..."
+                id="description"
+                cols="30"
+                rows="3"
+                style={{height: '150px'}}
+              />
+              
+              <FormLabel htmlFor="date">
+                Release Date
+              </FormLabel>
+              
+              
+              <FormInput
+                name="release_date"
+                className="dt"
+                type="date"
+                id="date"
+                required
+                style={{ width:'15%'}}
+              />
+              <br />
+              <FormLabel htmlFor="rating">
+              Rating
+              </FormLabel>
+              <br />
+              
+              <FormInput
+                name="rating"
+                className="dt"
+                placeholder="Rate from 1 to 5"
+                type="tel"
+                id="rating"
+                maxLength="1"
+                autoComplete="off"
+                style={{ width:'15%'}}
+              />
+              <br />
+              <FormLabel >
+                Image
+              </FormLabel>
+    
+              <FormInput
+                  type="text"
+                  placeholder="Insert image URL"
+                  id="image"
+                  name="image"
                 />
-                <LabelCheckbox htmlFor={platform}>{platform}.</LabelCheckbox>
+                {form.image && (
+                  <img width="45" height="35" src={form.image} alt="Game Cover" />
+                )}
+                <br />
+              <FormLabel>
+                Genres 
+              </FormLabel>
+              <CheckboxContainer>
+                {Array.from(new Set(form.genres.map((genre) => genre[1]))).map(
+                  (genreName, index) => (
+                    <div key={index}>
+                      <input
+                        name={genreName}
+                        value={
+                          form.genres.find((genre) => genre[1] === genreName)[0]
+                        }
+                        type="checkbox"
+                        id={genreName}
+                        onChange={handleGenreChange}
+                        checked={selectedGenres.includes(genreName)}
+                      />
+                      <FormLabelCheckbox htmlFor={genreName}>
+                        {genreName}.
+                      </FormLabelCheckbox>
+                    </div>
+                  )
+                )}
+              </CheckboxContainer>
+
+              <FormLabel>
+                Platforms 
+              </FormLabel>
+              <CheckboxContainer>
+                {form.platforms.map((platform, index) => (
+                  <div key={index}>
+                    <input
+                      name={platform}
+                      type="checkbox"
+                      id={platform}
+                      onChange={handlePlatformChange}
+                      checked={selectedPlatforms.includes(platform)}
+                    />
+                    <FormLabelCheckbox htmlFor={platform}>
+                      {platform}.
+                    </FormLabelCheckbox>
+                  </div>
+                ))}
+              </CheckboxContainer>
+              <br />
+              <div>
+                <FormButton type="submit">Create</FormButton>
               </div>
-            ))}
-          </CheckboxContainer>
+            </form>
+          </FormGroup>
         </div>
-        </div>
-        <br />
-        <div className="div-but-form">
-          <FormButton type="submit">Create</FormButton>
-        </div>
-      </form>
-    </FormContainer>
-    </div>
+      </div>
+    </>
   );
-}
+                }

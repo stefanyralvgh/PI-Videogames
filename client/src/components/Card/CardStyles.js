@@ -36,7 +36,7 @@ export const CardTitle = styled.h2`
   color: #5b5f97;
   text-decoration: none;
   font-family: 'Chakra Petch', sans-serif;
-  
+    
 `;
 
 export const GenreList = styled.div`

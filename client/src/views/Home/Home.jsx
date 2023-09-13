@@ -119,7 +119,7 @@ export default function Home(props) {
               onClick={() => handlePageChange(page - 1)} 
               disabled={page === 1}
             >
-              {"<"} 
+              {"❮"} 
             </NavigationButton>
             {pageNumbers.map((pageNumber) => (
               <NavigationButton
@@ -134,7 +134,7 @@ export default function Home(props) {
               onClick={() => handlePageChange(page + 1)} 
               disabled={page === totalPages}
             >
-               {">"}
+               {"❯"}
             </NavigationButton>
           </div>
         </div>

@@ -5,7 +5,6 @@ import {
   LandingImage,
   Overlay,
   Content,
-  OverlayImage,
   LandingTitle,
   LandingSubtitle,
 } from "./LandingStyles";
@@ -20,13 +19,12 @@ export default function Landing() {
 
   return (
     <LandingContainer>
-      <LandingImage src="./Images/OIP.jpg" alt="Landing Image" />
+      <LandingImage src="./Images/OIP2.GIF" alt="Landing Image" />
       <Overlay>
-        <OverlayImage src="./Images/OIP.jpg" alt="Overlay Image" />
         <Content>
           <LandingTitle>GAME ON</LandingTitle>
-          <LandingSubtitle>Your Gaming Journey Begins Here</LandingSubtitle>
-          <LandingButton onClick={goHome}>DISCOVER GAMES</LandingButton>
+          <LandingSubtitle>Find your favorite games in one place!</LandingSubtitle>
+          <LandingButton onClick={goHome}>EXPLORE</LandingButton>
         </Content>
       </Overlay>
     </LandingContainer>

@@ -46,11 +46,16 @@ export const SearchInput = styled.input`
 `;
 
 export const FormLink = styled(Link)`
-  text-decoration: none;
-  font-size: 18px;
+size: 20px;
   color: #ff6b6c;
   padding: 20px;
-  background-color: #FFFFFB;
-  font-weight: bold;
-  font-family: 'Chakra Petch', sans-serif;
+  /* background-color: #ff6b6c; */
+  .descripcion {
+    display: none;
+  }
+
+  /* Mostrar la descripción al hacer hover sobre el enlace */
+  &:hover .descripcion {
+    display: inline;
+  }
 `;

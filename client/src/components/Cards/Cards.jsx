@@ -108,7 +108,9 @@ export default function Cards({
   return (
     <div>
       <SearchContainer>
-      <FormLink to="/form">CREATE NEW GAME</FormLink>
+      <FormLink to="/form">
+        <img width="30" height="30" src="./Images/ADD.png" alt="ADD NEW GAME" title="ADD A NEW GAME"/>
+      </FormLink>
         <SearchInput
           type="text"
           placeholder="Search game"
