@@ -7,7 +7,7 @@ import {
   SearchContainer,
   SearchInput,
   FormLink,
-  NotFound
+  NotFound,
 } from "./CardsStyles";
 import Card from "../Card/Card";
 
@@ -19,23 +19,22 @@ export default function Cards({
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const { videogames, page, perPage } = useSelector((state) => state);
-  
 
   const dispatch = useDispatch();
- 
+
+  useEffect(() => {
+    dispatch(getVideogames());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getVideogames());
+  }, [dispatch, selectedSource]);
+
 
 
   useEffect(() => {
     dispatch(getVideogames());
-  }, [dispatch, page ]);
-
-  useEffect(() => {
-    dispatch(getVideogames());
-  }, [dispatch, selectedSource, page]);
-
-  useEffect(() => {
-    dispatch(getVideogames());
-  }, [dispatch, selectedGenre, page]);
+  }, [dispatch, selectedGenre]);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
@@ -46,7 +45,6 @@ export default function Cards({
         game.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : videogames;
-
 
   // const sortAlphabetically = (games) => {
   //   if (selectedAlphabeticalOrder === "asc") {
@@ -67,7 +65,6 @@ export default function Cards({
       return games;
     }
   };
-  
 
   const sortByRating = (games) => {
     if (selectedRatingOrder === "ratingAsc") {
@@ -100,7 +97,6 @@ export default function Cards({
   //     return videogames;
   //   }
   // };
-  
 
   const getByGenre = (videogames, genre) => {
     if (genre === "All") {
@@ -118,7 +114,9 @@ export default function Cards({
 
   let sortedGames = getByGenre(
     getBySource(
-      sortByRating(sortAlphabetically(filteredGames, selectedAlphabeticalOrder)),
+      sortByRating(
+        sortAlphabetically(filteredGames, selectedAlphabeticalOrder)
+      ),
       selectedSource
     ),
     selectedGenre
@@ -154,24 +152,24 @@ export default function Cards({
       {noGamesFound ? (
         <div>
           <img src="./Images/NO-RESULTS.PNG" alt="NO RESULTS FOUND" />
-      <NotFound>NO RESULTS FOUND</NotFound>
-      </div>
-    ) : (
-      <CardsContainer>
-        {displayedGames.map((game) => (
-          <LinkToDetail to={`/detail/${game.id}`} key={game.id}>
-            <Card
-              key={game.id}
-              id={game.id}
-              image={game.image}
-              name={game.name}
-              genres={game.Genres}
-              rating={game.rating}
-            />
-          </LinkToDetail>
-        ))}
-      </CardsContainer>
-    )}
+          <NotFound>NO RESULTS FOUND</NotFound>
+        </div>
+      ) : (
+        <CardsContainer>
+          {displayedGames.map((game) => (
+            <LinkToDetail to={`/detail/${game.id}`} key={game.id}>
+              <Card
+                key={game.id}
+                id={game.id}
+                image={game.image}
+                name={game.name}
+                genres={game.Genres}
+                rating={game.rating}
+              />
+            </LinkToDetail>
+          ))}
+        </CardsContainer>
+      )}
     </div>
   );
 }

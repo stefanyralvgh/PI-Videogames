@@ -14,7 +14,6 @@ import {
 } from "./HomeStyles.js";
 import axios from "axios";
 
-
 export default function Home(props) {
   const { page, perPage } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -43,11 +42,11 @@ export default function Home(props) {
     fetchGenres();
   }, []);
 
+
+
   const handlePageChange = (newPage) => {
     dispatch(setPage(newPage));
   };
-
-  
 
   const totalPages = Math.ceil(videogames.length / perPage);
 
@@ -56,7 +55,9 @@ export default function Home(props) {
     (_, index) => index + 1
   );
 
- 
+
+  
+
   return (
     <Container>
       <HomeFilters>
@@ -119,27 +120,27 @@ export default function Home(props) {
           />
           <div>
             <NavigationButton
-              onClick={() => handlePageChange(page - 1)} 
+              onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
             >
-              {"❮"} 
+              {"❮"}
             </NavigationButton>
             {pageNumbers.map((pageNumber) => (
               <NavigationButton
                 key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}                
-                disabled={pageNumber === page}
-                
-
->
+                onClick={() => handlePageChange(pageNumber)}
+                disabled={pageNumber === page }
+             
+              >
                 {pageNumber}
               </NavigationButton>
             ))}
             <NavigationButton
-              onClick={() => handlePageChange(page + 1)} 
+              onClick={() => handlePageChange(page + 1)}
               disabled={page === totalPages || page >= totalPages}
+
             >
-               {"❯"}
+              {"❯"}
             </NavigationButton>
           </div>
         </div>

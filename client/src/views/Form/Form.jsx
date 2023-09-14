@@ -153,6 +153,9 @@ export default function Form() {
     } else if (!/^(?:[1-5](?:\.\d+)?)$/.test(form.rating)) {
       errors.rating = "Rating must be between 1 and 5";
     }
+    if (!form.selectedPlatforms || form.selectedPlatforms.length === 0) {
+      errors.platforms = "At least one platform is required";
+    }
     return errors;
   };
 
@@ -173,19 +176,31 @@ export default function Form() {
     });
   };
 
+  
+
+
+
   const handlePlatformChange = (e) => {
     const platform = e.target.name;
     const isChecked = e.target.checked;
-
+  
     setSelectedPlatforms((prevPlatforms) => {
       const updatedPlatforms = new Set(prevPlatforms);
-
+  
       if (isChecked) {
         updatedPlatforms.add(platform);
       } else {
         updatedPlatforms.delete(platform);
       }
-
+  
+      const newForm = {
+        ...form,
+        selectedPlatforms: Array.from(updatedPlatforms),
+      };
+  
+      setForm(newForm);
+      setErrors(validate(newForm)); // Update errors state
+  
       return Array.from(updatedPlatforms);
     });
   };
@@ -340,6 +355,7 @@ export default function Form() {
                   </div>
                 ))}
               </CheckboxContainer>
+                {errors.platforms && <ErrorMessage>{errors.platforms}</ErrorMessage>}
               <br />
               <div>
                 <FormButton
