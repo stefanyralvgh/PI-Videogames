@@ -7,6 +7,7 @@ import {
   SearchContainer,
   SearchInput,
   FormLink,
+  NotFound
 } from "./CardsStyles";
 import Card from "../Card/Card";
 
@@ -19,6 +20,8 @@ export default function Cards({
   const [searchTerm, setSearchTerm] = useState("");
   const { videogames, page, perPage } = useSelector((state) => state);
   const dispatch = useDispatch();
+ 
+
 
   useEffect(() => {
     dispatch(getVideogames());
@@ -98,6 +101,7 @@ export default function Cards({
   );
 
   let displayedGames = sortedGames.slice(startIndex, endIndex);
+  const noGamesFound = displayedGames.length === 0;
 
   const onSearch = (event) => {
     const searchTerm = event.target.value;
@@ -123,6 +127,12 @@ export default function Cards({
           value={searchTerm}
         />
       </SearchContainer>
+      {noGamesFound ? (
+        <div>
+          <img src="./Images/NO-RESULTS.PNG" alt="NO RESULTS FOUND" />
+      <NotFound>NO RESULTS FOUND</NotFound>
+      </div>
+    ) : (
       <CardsContainer>
         {displayedGames.map((game) => (
           <LinkToDetail to={`/detail/${game.id}`} key={game.id}>
@@ -136,6 +146,7 @@ export default function Cards({
           </LinkToDetail>
         ))}
       </CardsContainer>
+    )}
     </div>
   );
 }

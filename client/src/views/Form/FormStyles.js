@@ -37,11 +37,10 @@ export const FormLabel = styled.label`
   margin: 10px;
 `;
 export const FormLabelCheckbox = styled.label`
-  color: black;
-  border-radius: 20px;
+  
   font-weight: bolder;
-  padding: 10px;
-  height: 10px;
+
+  
 `;
 
 export const FormInput = styled.input`
@@ -133,15 +132,40 @@ export const ErrorMessage = styled.p`
   
 `;
 
+export const DetailButton = styled.button`
+  position: absolute;
+  top: 20px; 
+  left: 10px; 
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0.5rem;
+  font-size: smaller;
+  border-radius: 50px;
+  border: none;
+  background-color: #ff6666;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+  
+`;
+
 export const FormImage = styled.img`
   width: 30px;
   height: 20px;
 `;
 
 export const CheckboxContainer = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin: 20px;
+  width: 800px; */
+
+  display: grid; /* Usar cuadrícula CSS */
+  grid-template-columns: repeat(5, 1fr); /* Cinco columnas */
+  grid-gap: 5px; /* Espacio entre elementos */
+  margin: 20px;
   width: 800px;
+  align-items: center; /* Alinear verticalmente los elementos */
 `;

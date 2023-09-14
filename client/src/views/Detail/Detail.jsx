@@ -34,7 +34,7 @@ export default function Detail() {
     fetch(`http://localhost:3001/videogames/${detailId}`)
       .then((response) => response.json())
       .then((gameData) => {
-        if (gameData.name) {
+        if (gameData.id) {
           const genresList = [];
           gameData.Genres.forEach((genre) => {
             genresList.push(genre.name);
@@ -55,7 +55,7 @@ export default function Detail() {
       })
       .catch((err) => {
         console.error("ERROR:", err);
-        window.alert("Error occurred while fetching data");
+        window.alert("Error occurred while getting data");
       })
       .finally(() => {
         setIsDataLoading(false);

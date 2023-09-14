@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { addVideoGame } from "../../redux/actions/actions";
 import {
   FormTitle,
@@ -9,6 +10,7 @@ import {
   FormTextTarea,
   ErrorMessage,
   FormInput,
+  DetailButton,
   FormLabelCheckbox,
   CheckboxContainer,
 } from "../Form/FormStyles";
@@ -18,7 +20,7 @@ export default function Form() {
   const dispatch = useDispatch();
   const [selectedGenreIds, setSelectedGenreIds] = useState([]);
   const [errors, setErrors] = useState({ form: "Must complete the form" });
-
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -83,6 +85,16 @@ export default function Form() {
           prevGenres.filter((prevGenre) => prevGenre !== genre)
         );
       }
+      // const genreName = e.target.name;
+      // const isChecked = e.target.checked;
+
+      // if (isChecked) {
+      //   setSelectedGenres([...selectedGenres, genreName]);
+      // } else {
+      //   setSelectedGenres(
+      //     selectedGenres.filter((genre) => genre !== genreName)
+      //   );
+      // }
     }
 
     if (e.target.parentNode.parentNode.id === "platforms") {
@@ -179,7 +191,7 @@ export default function Form() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     validate(form);
 
     let checkboxsErrors = [];
@@ -210,18 +222,17 @@ export default function Form() {
         console.error("Error creating the videogame:", error);
         window.alert("Error creating the game. Please try again.");
       });
-
-  
   };
-
-
- 
 
   return (
     <>
       <div>
         <div>
+        <DetailButton onClick={() => navigate("/home")}>
+        🡸
+             </DetailButton>
           <FormTitle>CREATE NEW VIDEOGAME </FormTitle>
+
           <FormGroup>
             <form onSubmit={handleSubmit} onChange={handleChange}>
               <FormLabel htmlFor="name">Name</FormLabel>
@@ -244,7 +255,9 @@ export default function Form() {
                 rows="3"
                 style={{ height: "150px" }}
               />
-                {errors.description && <ErrorMessage>{errors.description}</ErrorMessage>}
+              {errors.description && (
+                <ErrorMessage>{errors.description}</ErrorMessage>
+              )}
               <FormLabel htmlFor="date">Release Date</FormLabel>
 
               <FormInput
@@ -255,7 +268,9 @@ export default function Form() {
                 required
                 style={{ width: "15%" }}
               />
-              {errors.release_date && <ErrorMessage>{errors.release_date}</ErrorMessage>}
+              {errors.release_date && (
+                <ErrorMessage>{errors.release_date}</ErrorMessage>
+              )}
               <br />
               <FormLabel htmlFor="rating">Rating</FormLabel>
               <br />
@@ -271,7 +286,7 @@ export default function Form() {
               />
               {errors.rating && <ErrorMessage>{errors.rating}</ErrorMessage>}
               <br />
-  
+
               <FormLabel>Image</FormLabel>
 
               <FormInput
@@ -327,7 +342,12 @@ export default function Form() {
               </CheckboxContainer>
               <br />
               <div>
-                <FormButton type="submit" disabled={Object.keys(validate(form)).length > 0}>Create</FormButton>
+                <FormButton
+                  type="submit"
+                  disabled={Object.keys(validate(form)).length > 0}
+                >
+                  Create
+                </FormButton>
               </div>
             </form>
           </FormGroup>

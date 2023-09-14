@@ -47,6 +47,8 @@ export default function Home(props) {
     dispatch(setPage(newPage));
   };
 
+  
+
   const totalPages = Math.ceil(videogames.length / perPage);
 
   const pageNumbers = Array.from(
@@ -54,6 +56,7 @@ export default function Home(props) {
     (_, index) => index + 1
   );
 
+ 
   return (
     <Container>
       <HomeFilters>
@@ -124,15 +127,17 @@ export default function Home(props) {
             {pageNumbers.map((pageNumber) => (
               <NavigationButton
                 key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}
+                onClick={() => handlePageChange(pageNumber)}                
                 disabled={pageNumber === page}
-              >
+                
+
+>
                 {pageNumber}
               </NavigationButton>
             ))}
             <NavigationButton
               onClick={() => handlePageChange(page + 1)} 
-              disabled={page === totalPages}
+              disabled={page === totalPages || page >= totalPages}
             >
                {"❯"}
             </NavigationButton>

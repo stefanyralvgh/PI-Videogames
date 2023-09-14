@@ -10,6 +10,14 @@ export const CardsContainer = styled.div`
   margin: 0 auto;
   padding: 20px;
 `;
+export const NotFound = styled.p`
+   text-align: center;
+  font-size: 30px;
+  font-family: "Chakra Petch", sans-serif;
+  color: #ffc145;
+  margin-top: 20px;
+  padding: 50px;  
+`;
 
 export const LinkToDetail = styled(Link) `
 text-decoration: none;
@@ -49,12 +57,11 @@ export const FormLink = styled(Link)`
 size: 20px;
   color: #ff6b6c;
   padding: 20px;
-  /* background-color: #ff6b6c; */
+
   .descripcion {
     display: none;
   }
 
-  /* Mostrar la descripción al hacer hover sobre el enlace */
   &:hover .descripcion {
     display: inline;
   }
