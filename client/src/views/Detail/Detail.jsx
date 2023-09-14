@@ -69,7 +69,12 @@ export default function Detail() {
         <Loading />
       ) : (
         <div>
+
           <DetailContainer>
+            
+          <DetailButton onClick={() => navigate("/home")}>
+          🡸
+          </DetailButton>
             <DetailImage src={game.image} alt={`Image of ${game.name}`} />
 
             <div>
@@ -111,9 +116,6 @@ export default function Detail() {
             </div>
           </DetailContainer>
 
-          <DetailButton onClick={() => navigate("/home")}>
-             GO HOME
-          </DetailButton>
         </div>
       )}
     </div>

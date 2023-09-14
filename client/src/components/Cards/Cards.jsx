@@ -19,21 +19,23 @@ export default function Cards({
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const { videogames, page, perPage } = useSelector((state) => state);
+  
+
   const dispatch = useDispatch();
  
 
 
   useEffect(() => {
     dispatch(getVideogames());
-  }, [dispatch]);
+  }, [dispatch, page ]);
 
   useEffect(() => {
     dispatch(getVideogames());
-  }, [dispatch, selectedSource]);
+  }, [dispatch, selectedSource, page]);
 
   useEffect(() => {
     dispatch(getVideogames());
-  }, [dispatch, selectedGenre]);
+  }, [dispatch, selectedGenre, page]);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
@@ -46,7 +48,17 @@ export default function Cards({
     : videogames;
 
 
-  const sortAlphabetically = (games) => {
+  // const sortAlphabetically = (games) => {
+  //   if (selectedAlphabeticalOrder === "asc") {
+  //     return [...games].sort((a, b) => a.name.localeCompare(b.name));
+  //   } else if (selectedAlphabeticalOrder === "desc") {
+  //     return [...games].sort((a, b) => b.name.localeCompare(a.name));
+  //   } else {
+  //     return games;
+  //   }
+  // };
+
+  const sortAlphabetically = (games, selectedAlphabeticalOrder) => {
     if (selectedAlphabeticalOrder === "asc") {
       return [...games].sort((a, b) => a.name.localeCompare(b.name));
     } else if (selectedAlphabeticalOrder === "desc") {
@@ -55,6 +67,7 @@ export default function Cards({
       return games;
     }
   };
+  
 
   const sortByRating = (games) => {
     if (selectedRatingOrder === "ratingAsc") {
@@ -77,7 +90,18 @@ export default function Cards({
       return videogames;
     }
   };
- 
+
+  // const getBySource = (videogames, selectedSource) => {
+  //   if (selectedSource === "DB") {
+  //     return videogames.filter((game) => game.source === "DB");
+  //   } else if (selectedSource === "API") {
+  //     return videogames.filter((game) => game.source !== "DB");
+  //   } else {
+  //     return videogames;
+  //   }
+  // };
+  
+
   const getByGenre = (videogames, genre) => {
     if (genre === "All") {
       return videogames;
@@ -94,7 +118,7 @@ export default function Cards({
 
   let sortedGames = getByGenre(
     getBySource(
-      sortByRating(sortAlphabetically(filteredGames)),
+      sortByRating(sortAlphabetically(filteredGames, selectedAlphabeticalOrder)),
       selectedSource
     ),
     selectedGenre
@@ -142,6 +166,7 @@ export default function Cards({
               image={game.image}
               name={game.name}
               genres={game.Genres}
+              rating={game.rating}
             />
           </LinkToDetail>
         ))}

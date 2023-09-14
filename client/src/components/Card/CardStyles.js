@@ -38,6 +38,20 @@ export const CardTitle = styled.h2`
   font-family: 'Chakra Petch', sans-serif;
     
 `;
+export const CardRating = styled.h2`
+display: flex;
+align-items: center;
+  font-size: 12px;
+  margin: auto;
+  margin-top: 10px;
+
+  color: #4d5080;
+  text-decoration: none;
+  font-family: 'Chakra Petch', sans-serif;
+  width: 20px;
+ 
+    
+`;
 
 export const GenreList = styled.div`
   display: flex;

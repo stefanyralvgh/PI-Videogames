@@ -60,26 +60,23 @@ export const DetailImage = styled.img`
 `;
 
 export const DetailButton = styled.button`
+  position: absolute;
+  top: 20px; 
+  left: 10px; 
   padding: 10px 20px;
   display: flex;
-  margin: auto;
-  margin-top: 45px;
+  flex-direction: column-reverse;
   padding: 0.5rem;
+  width: 40px;
+  align-items: center;
   font-size: smaller;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
   background-color: #ff6666;
   color: white;
   cursor: pointer;
   transition: transform 0.2s;
-  
-  &:active {
-    transform: scale(0.9);
-  }
 
-  &:hover {
-    background-color: #ff4d4d;
-  }
 `;
 
 
