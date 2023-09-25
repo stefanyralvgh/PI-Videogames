@@ -137,6 +137,8 @@ export default function Form() {
       errors.name = "Game Name is required";
     } else if (form.name.length < 4) {
       errors.name = "Game Name must have at least 4 characters";
+    } else if (form.name.length > 15) {
+      errors.name = "Game Name must have until 15 characters";
     }
     if (!form.description) {
       errors.description = "Description is required";
@@ -206,7 +208,7 @@ export default function Form() {
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     validate(form);
 
     let checkboxsErrors = [];

@@ -8,6 +8,7 @@ import {
   ButtonItem,
 } from "./DetailStyles";
 import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -63,61 +64,122 @@ export default function Detail() {
       });
   }, [detailId]);
 
-  return (
-    <div>
-      {isLoading || isDataLoading ? (
-        <Loading />
-      ) : (
-        <div>
+//   return (
+//     <div>
+//       {isLoading || isDataLoading ? (
+//         <Loading />
+//       ) : game.id ? 
+//       (
+//         <div>
 
-          <DetailContainer>
+//           <DetailContainer>
             
-          <DetailButton onClick={() => navigate("/home")}>
-          🡸
-          </DetailButton>
-            <DetailImage src={game.image} alt={`Image of ${game.name}`} />
+//           <DetailButton onClick={() => navigate("/home")}>
+//           🡸
+//           </DetailButton>
+//             <DetailImage src={game.image} alt={`Image of ${game.name}`} />
 
-            <div>
-              <DetailTitle>ID </DetailTitle>
-              <DetailText>{game.id}</DetailText>
+//             <div>
+//               <DetailTitle>ID </DetailTitle>
+//               <DetailText>{game.id}</DetailText>
               
-            </div>
-            <div>
-              <DetailTitle>NAME</DetailTitle>
-              <DetailText  style={{ fontSize: '20px', textTransform: 'uppercase' }}>{game.name}</DetailText>
-            </div>
-            <div>
-              <DetailTitle>RATING</DetailTitle>
-              <DetailText>{game.rating}</DetailText>
-            </div>
-            <div>
-              <DetailTitle>RELEASE DATE</DetailTitle>
-              <DetailText>{game.release_date}</DetailText>
-            </div>
-            <div>
-              <DetailTitle>DESCRIPTION</DetailTitle>
-              <DetailText style={{ fontSize: '18px' }}>{game.description}</DetailText>
-            </div>
-            <div>
-              <DetailTitle>PLATFORMS</DetailTitle>{" "}
-              <div>
-                {game.platforms.map((platform, index) => (
-                  <ButtonItem key={index}>{platform}</ButtonItem>
-                ))}
-              </div>
-            </div>
-            <div>
-              <DetailTitle>GENRES</DetailTitle>{" "}
-              <div>
-                {game.genres.map((genre, index) => (
-                  <ButtonItem key={index}>{genre}</ButtonItem>
-                ))}
-              </div>
-            </div>
-          </DetailContainer>
+//             </div>
+//             <div>
+//               <DetailTitle>NAME</DetailTitle>
+//               <DetailText  style={{ fontSize: '20px', textTransform: 'uppercase' }}>{game.name}</DetailText>
+//             </div>
+//             <div>
+//               <DetailTitle>RATING</DetailTitle>
+//               <DetailText>{game.rating}</DetailText>
+//             </div>
+//             <div>
+//               <DetailTitle>RELEASE DATE</DetailTitle>
+//               <DetailText>{game.release_date}</DetailText>
+//             </div>
+//             <div>
+//               <DetailTitle>DESCRIPTION</DetailTitle>
+//               <DetailText style={{ fontSize: '18px' }}>{game.description}</DetailText>
+//             </div>
+//             <div>
+//               <DetailTitle>PLATFORMS</DetailTitle>{" "}
+//               <div>
+//                 {game.platforms.map((platform, index) => (
+//                   <ButtonItem key={index}>{platform}</ButtonItem>
+//                 ) : (
+//                   <div>
+//                   <Error/>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//             <div>
+//               <DetailTitle>GENRES</DetailTitle>{" "}
+//               <div>
+//                 {game.genres.map((genre, index) => (
+//                   <ButtonItem key={index}>{genre}</ButtonItem>
+//                 ))}
+//               </div>
+//             </div>
+//           </DetailContainer>
 
-        </div>
-      )}
-    </div>
-  );
-}
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+return (
+  <div>
+    {isLoading || isDataLoading ? (
+      <Loading />
+    ) : game.id ? (
+      <div>
+        <DetailContainer>
+          <DetailButton onClick={() => navigate("/home")}>🡸</DetailButton>
+          <DetailImage src={game.image} alt={`Image of ${game.name}`} />
+
+          <div>
+            <DetailTitle>ID</DetailTitle>
+            <DetailText>{game.id}</DetailText>
+          </div>
+          <div>
+            <DetailTitle>NAME</DetailTitle>
+            <DetailText style={{ fontSize: '20px', textTransform: 'uppercase' }}>{game.name}</DetailText>
+          </div>
+          <div>
+            <DetailTitle>RATING</DetailTitle>
+            <DetailText>{game.rating}</DetailText>
+          </div>
+          <div>
+            <DetailTitle>RELEASE DATE</DetailTitle>
+            <DetailText>{game.release_date}</DetailText>
+          </div>
+          <div>
+            <DetailTitle>DESCRIPTION</DetailTitle>
+            <DetailText style={{ fontSize: '18px' }}>{game.description}</DetailText>
+          </div>
+          <div>
+            <DetailTitle>PLATFORMS</DetailTitle>{" "}
+            <div>
+              {game.platforms.map((platform, index) => (
+                <ButtonItem key={index}>{platform}</ButtonItem>
+              ))}
+            </div>
+          </div>
+          <div>
+            <DetailTitle>GENRES</DetailTitle>{" "}
+            <div>
+              {game.genres.map((genre, index) => (
+                <ButtonItem key={index}>{genre}</ButtonItem>
+              ))}
+            </div>
+          </div>
+        </DetailContainer>
+      </div>
+    ) : (
+      <div>
+        <Error /> {/* Aquí puedes usar tu componente de error */}
+      </div>
+    )}
+  </div>
+);
+    };
